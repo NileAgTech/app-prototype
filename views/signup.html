@@ -27,10 +27,10 @@
                     <p class="color-highlight text-center font-12">
                         Sign up for an account
                     </p>
-                                 
+                    <form method ="post" action="/signup">            
                     <div class="input-style input-transparent no-borders has-icon validate-field mt-2">
                         <i class="fa fa-at"></i>
-                        <input type="email" class="form-control validate-name" id="email" placeholder="Email">
+                        <input type="email" class="form-control validate-name" id="email" name="email" placeholder="Email">
                         <label for="email" class="color-blue-dark font-10 mt-1">Email</label>
                         <i class="fa fa-times disabled invalid color-red-dark"></i>
                         <i class="fa fa-check disabled valid color-green-dark"></i>
@@ -38,7 +38,7 @@
                     </div>                
                     <div class="input-style input-transparent no-borders has-icon validate-field mt-2">
                         <i class="fa fa-lock"></i>
-                        <input type="password" class="form-control validate-text" id="password" placeholder="Choose a Password">
+                        <input type="password" class="form-control validate-text" name="password" id="password" placeholder="Choose a Password">
                         <label for="password" class="color-blue-dark font-10 mt-1">Choose a Password</label>
                         <i class="fa fa-times disabled invalid color-red-dark"></i>
                         <i class="fa fa-check disabled valid color-green-dark"></i>
@@ -49,8 +49,11 @@
                     <div class="text-center mb-5 mt-5">
                         <a href="login" class="color-white font-12 opacity-60">Already Registered? Sign in Here</a>
                     </div>
+                    
 
-                    <a href="#" class="back-button btn btn-full btn-m shadow-large rounded-s text-uppercase font-900 bg-highlight">Create Account</a>
+                        <input type ="submit" class="back-button btn btn-full btn-m shadow-large rounded-s text-uppercase font-900 bg-highlight" value="Create Account"/>
+                    </form>
+    
                 </div>
 
             </div>
