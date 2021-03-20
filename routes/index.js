@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
   res.render('login', { title: 'Express' });
 });
 
+//get index
 router.get('/index',async (req, res) => {
   res.render('index');
 });
@@ -27,34 +28,29 @@ router.post('/signup', async (req, res) => {
   email = req.body.email
   const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
 
-  //check db to see if user already exists
-  co(function*(){
+  let client = await MongoClient.connect(url)
+  const db = client.db(datab)
+  let usersCol = db.collection('users')
 
-    let client = yield MongoClient.connect(url)
-    const db = client.db(datab)
-    let usersCol = db.collection('users')
+  check = await usersCol.findOne({"email": email})
 
-    check = yield usersCol.findOne({"email": email})
-
-    if (check === null){
+  if (check === null){
       
-      var item = {
-        "email" : email,
-        "password": passwordHash
-      }
-
-      yield usersCol.insertOne(item)
-
-      res.render('login')
-
-    } else {
-      
-      //TODO: create error messgae
-
-      res.render('signup')
+    var item = {
+      "email" : email,
+      "password": passwordHash
     }
 
-  })
+    await usersCol.insertOne(item)
+
+    res.render('login')
+
+  } else {
+      
+    //TODO: create error messgae
+
+    res.render('signup')
+  }
 
 })
 
@@ -63,25 +59,21 @@ router.post('/login', async (req, res) => {
 
   email = req.body.email
 
-  co(function*(){
+  let client = await MongoClient.connect(url)
+  const db = client.db(datab)
+  let usersCol = db.collection('users')
 
-    let client = yield MongoClient.connect(url)
-    const db = client.db(datab)
-    let usersCol = db.collection('users')
+  check = await usersCol.findOne({"email": email})
+  var password = check.password
+  const passwordMatches = await bcrypt.compare(req.body.password, password);
 
-    check = yield usersCol.findOne({"email": email})
-    var password = check.password
-    const passwordMatches = yield bcrypt.compare(req.body.password, password);
+  console.log(passwordMatches)
 
-    console.log(passwordMatches)
+  if (passwordMatches){
 
-    if (passwordMatches){
+    res.redirect('index')
 
-      res.redirect('index')
-
-    }
-
-  })
+  }
 
 })
 
