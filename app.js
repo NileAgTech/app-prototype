@@ -32,8 +32,3 @@ app.use((req, res) => {
 
 app.listen(3000);
 console.log('listening on port 3000');
-
-//connect mongodb TODO
-
-//const dbService = require("./dbService")
-//const db = dbService.getDbServiceInstance;
