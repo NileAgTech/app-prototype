@@ -1024,18 +1024,104 @@ const watchID = navigator.geolocation.watchPosition(success, error, options);
 
 
 
+// agro api satillite data
+
+//make id (use in dev)
+
+function makeid(length) {
+   var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
+
+function createPoly(cor1, cor2, cor3, cor4, cor5, key, id){
+
+    json = {
+
+        "name": id,
+        "geo_json" : {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        cor1,cor2,cor3,cor4,cor5
+                    ]
+                ]
+            }
+        }
+    }
+
+    //add ajax function
+    new Promise((resolve, reject) => {
+            $.ajax({
+                dataType: "json",
+                contentType: "application/json",
+                url: `http://api.agromonitoring.com/agro/1.0/polygons?appid=${key}`,
+                type: "POST",
+                data: JSON.stringify(json), 
+                success: function(){
+                    console.log('created polygon!!!!!##U#U')
+                }
+            });
+        });
+    
+}
+
+
+function searchSatillities(id,key){
+
+    //get image info
+    var res
+    var start_date
+    var end_date
+
+    const day = ((60*60*24))
+    const maxDays2Search = 10
+
+    end_date = Math.round(+new Date()/1000);
+    start_date = end_date - (maxDays2Search*day)
+
+    new Promise((resolve, reject) => {
+            res = $.ajax({
+                dataType: "json",
+                contentType: "application/json",
+                url: `http://api.agromonitoring.com/agro/1.0/image/search?start=${start_date}&end=${end_date}&polyid=${id}&appid=${key}`,
+                type: "GET",
+                done: function(results) {
+                    JSON.parse(results);
+                    return results;
+                },
+            }).responseJSON;
+        });
+
+    //get ndvi image url of most recent
+    mostRecent = res[0]
+    url = mostRecent['image']['ndvi']
+
+    return url
+    
+}
 
 // search satalites
-var api_key = '29d8ad412c96e1d63a431fb1add3ce53fd1a135e150eca4c28a31a1f56c3867c';
-var bbox = '19.59,49.90,20.33,50.21';
-var url1 = `https://api.spectator.earth/imagery/?api_key=${api_key}&bbox=${bbox}`;
-//  https://api.spectator.earth/imagery/?api_key=29d8ad412c96e1d63a431fb1add3ce53fd1a135e150eca4c28a31a1f56c3867c&bbox=19.59,49.90,20.33,50.21
+var api_key = '06bfa60682e4cbcd473244d9c6b9ddb5';
+var polyID = makeid(7)
 
-// one call API
-$.getJSON(url1, function(data){
-  //console.log(data.weather[0].main);
-  console.log(data);
-});
+cor1 = [-121.1958,37.6683]
+cor2 = [-121.1779,37.6687]
+cor3 = [-121.1773, 37.6792]
+cor4 = [-121.1958,37.6792]
+cor5 = [-121.1958,37.6683]
+
+createPoly(cor1, cor2, cor3, cor4, cor5, api_key, polyID)
+imgUrl = searchSatillities(polyID, api_key)
+
+console.log(imgUrl)
 
 	</script>
 </body>
