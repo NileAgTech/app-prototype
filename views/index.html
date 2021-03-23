@@ -1040,6 +1040,8 @@ function makeid(length) {
 
 function createPoly(cor1, cor2, cor3, cor4, cor5, key, id){
 
+    var polyID
+
     json = {
 
         "name": id,
@@ -1057,6 +1059,8 @@ function createPoly(cor1, cor2, cor3, cor4, cor5, key, id){
         }
     }
 
+    //TODO: update ajax to return polyID
+    
     //add ajax function
     new Promise((resolve, reject) => {
             $.ajax({
@@ -1065,16 +1069,19 @@ function createPoly(cor1, cor2, cor3, cor4, cor5, key, id){
                 url: `http://api.agromonitoring.com/agro/1.0/polygons?appid=${key}`,
                 type: "POST",
                 data: JSON.stringify(json), 
-                success: function(){
-                    console.log('created polygon!!!!!##U#U')
+                success: function(data){
+                    polyID = data['id']
+                    return polyID
                 }
             });
         });
+
+    return polyID
     
 }
 
 
-function searchSatillities(id,key){
+function searchSatillities(polyID,key){
 
     //get image info
     var res
@@ -1088,16 +1095,15 @@ function searchSatillities(id,key){
     start_date = end_date - (maxDays2Search*day)
 
     new Promise((resolve, reject) => {
-            res = $.ajax({
+            $.ajax({
                 dataType: "json",
-                contentType: "application/json",
-                url: `http://api.agromonitoring.com/agro/1.0/image/search?start=${start_date}&end=${end_date}&polyid=${id}&appid=${key}`,
+                //contentType: "application/json",
+                url: `http://api.agromonitoring.com/agro/1.0/image/search?start=${start_date}&end=${end_date}&polyid=${polyID}&appid=${key}`,
                 type: "GET",
-                done: function(results) {
-                    JSON.parse(results);
-                    return results;
-                },
-            }).responseJSON;
+                success: function(data){
+                    console.log(data);
+                }
+            })
         });
 
     //get ndvi image url of most recent
@@ -1110,7 +1116,7 @@ function searchSatillities(id,key){
 
 // search satalites
 var api_key = '06bfa60682e4cbcd473244d9c6b9ddb5';
-var polyID = makeid(7)
+var id = makeid(7)
 
 cor1 = [-121.1958,37.6683]
 cor2 = [-121.1779,37.6687]
@@ -1118,7 +1124,7 @@ cor3 = [-121.1773, 37.6792]
 cor4 = [-121.1958,37.6792]
 cor5 = [-121.1958,37.6683]
 
-createPoly(cor1, cor2, cor3, cor4, cor5, api_key, polyID)
+polyID = createPoly(cor1, cor2, cor3, cor4, cor5, api_key, id)
 imgUrl = searchSatillities(polyID, api_key)
 
 console.log(imgUrl)
