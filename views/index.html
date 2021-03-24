@@ -326,6 +326,13 @@
                 <a href="#" class="btn btn-m btn-center-l text-uppercase font-900 bg-red-dark rounded-sm shadow-xl mb-4">Purchase Now - $25</a>
             </div>
         </div>
+
+        <div class="card card-style">
+            <div class="content mb-0">
+                <h1 class="text-center mb-0">Satillite Image of Location</h1>
+                <img id="satalite_img">
+            </div>
+        </div>
 		
 		<div class="card card-style">
 			<div class="mt-n2">
@@ -1040,7 +1047,8 @@ function makeid(length) {
 
 function createPoly(cor1, cor2, cor3, cor4, cor5, key, id){
 
-    var polyID
+    var polyID;
+
 
     json = {
 
@@ -1060,7 +1068,8 @@ function createPoly(cor1, cor2, cor3, cor4, cor5, key, id){
     }
 
     //TODO: update ajax to return polyID
-    
+
+
     //add ajax function
     new Promise((resolve, reject) => {
             $.ajax({
@@ -1068,16 +1077,15 @@ function createPoly(cor1, cor2, cor3, cor4, cor5, key, id){
                 contentType: "application/json",
                 url: `http://api.agromonitoring.com/agro/1.0/polygons?appid=${key}`,
                 type: "POST",
+                async: false,
                 data: JSON.stringify(json), 
                 success: function(data){
                     polyID = data['id']
-                    return polyID
                 }
             });
         });
 
     return polyID
-    
 }
 
 
@@ -1101,17 +1109,13 @@ function searchSatillities(polyID,key){
                 url: `http://api.agromonitoring.com/agro/1.0/image/search?start=${start_date}&end=${end_date}&polyid=${polyID}&appid=${key}`,
                 type: "GET",
                 success: function(data){
-                    console.log(data);
+                    mostRecent = data[0]
+                    url = mostRecent['image']['ndvi']
+                    $('#satalite_img').attr("src", url)
+
                 }
             })
         });
-
-    //get ndvi image url of most recent
-    mostRecent = res[0]
-    url = mostRecent['image']['ndvi']
-
-    return url
-    
 }
 
 // search satalites
@@ -1124,10 +1128,9 @@ cor3 = [-121.1773, 37.6792]
 cor4 = [-121.1958,37.6792]
 cor5 = [-121.1958,37.6683]
 
-polyID = createPoly(cor1, cor2, cor3, cor4, cor5, api_key, id)
-imgUrl = searchSatillities(polyID, api_key)
 
-console.log(imgUrl)
+polyID = createPoly(cor1, cor2, cor3, cor4, cor5, api_key, id)
+searchSatillities(polyID, api_key)
 
 	</script>
 </body>
