@@ -8,9 +8,16 @@ var url = 'mongodb://localhost:27017/';
 var datab = 'app-prototype'
 const saltRounds = 10;
 
+
+// welcome page
+router.get('/welcome', async (req,res) => {
+  res.render('welcome')
+})
+
+
 /* GET login page. */
 router.get('/', async (req, res) => {
-  res.render('login', { title: 'Express' });
+  res.render('welcome', { title: 'Express' });
 });
 
 //get index
@@ -18,10 +25,17 @@ router.get('/index',async (req, res) => {
   res.render('index');
 });
 
+
+router.get('/login', async (req,res) => {
+  res.render('login')
+})
 router.get('/signup', async (req,res) => {
   res.render('signup')
 })
 
+router.get('/menu', async (req,res) => {
+  res.render('menu')
+})
 router.post('/signup', async (req, res) => {
 
   //get username and password

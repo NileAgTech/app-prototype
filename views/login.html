@@ -13,64 +13,71 @@
 <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
 <link rel="apple-touch-icon" sizes="180x180" href="/app/icons/icon-192x192.png">
 </head>
-    
-<body class="theme-light" data-highlight="highlight-red" data-gradient="body-default">
-    
+	
+<body class="theme-light" data-highlight="highlight-pink" data-gradient="body-default">
+	
 <div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
-    
+	
 <div id="page">
-    
-        
-    <div class="page-content  pb-0">
-        
-        <div data-card-height="cover" class="card">
-            <div class="card-center">
+	
+		
+	<div class="page-content  pb-0">
+		
+		<div style="height:100vh;margin-bottom:0" class="card">
+			<div class="card-center">
 
-                <div class="ps-5 pe-5">
-                    <div id="logo" class = "center-block">
-                        <img src="images/pictures/logo1.png" class= "img-fluid" alt="Nile" />
-                    </div>
-                    <h1 class="color-white text-center text-uppercase font-900 fa-4x">LOGIN</h1>
-                    
-                    <form method ="post" action="/login"> 
+				<div class="ps-5 pe-5">
+					<div hidden id="logo" class = "center-block">
+						<img src="images/pictures/logo1.png" class= "img-fluid" alt="Nile" style=""/>
+					</div>
+					<h1 class="color-white text-center text-uppercase font-900 fa-4x">LOGIN</h1>
+					<p class="color-green-dark text-center font-12">
+						Log in to Nile Tech
+					</p>
+					
+					<form method ="post" action="/login">
 
-                    <div class="input-style input-transparent no-borders has-icon validate-field">
-                        <i class="fa fa-user"></i>
-                        <input type="email" class="form-control validate-name" id="email" name = "email" placeholder="Email">
-                        <label for="email" class="color-blue-dark font-10 mt-1">Email</label>
-                        <i class="fa fa-times disabled invalid color-red-dark"></i>
-                        <i class="fa fa-check disabled valid color-green-dark"></i>
-                        <em>(required)</em>
-                    </div>
+					<div class="input-style input-transparent no-borders has-icon validate-field">
+						<i class="fa fa-user"></i>
+						<input type="email" class="form-control validate-name" id="email" name = "email" placeholder="Email">
+						<label for="email" class="color-green-dark font-10 mt-1">Email</label>
+						<i class="fa fa-times disabled invalid color-red-dark"></i>
+						<i class="fa fa-check disabled valid color-green-dark"></i>
+						<em>(required)</em>
+					</div>
 
-                    <div class="input-style input-transparent no-borders has-icon validate-field mt-4">
-                        <i class="fa fa-lock"></i>
-                        <input type="password" class="form-control validate-password" id="password" name = "password" placeholder="Password">
-                        <label for="password" class="color-blue-dark font-10 mt-1">Password</label>
-                        <i class="fa fa-times disabled invalid color-red-dark"></i>
-                        <i class="fa fa-check disabled valid color-green-dark"></i>
-                        <em>(required)</em>
-                    </div>
-                    
-                    <div class="d-flex mt-4 mb-4">
-                        <div class="w-50 font-11 pb-2 color-white opacity-60 text-start"><a href="/signup" class="color-white">Create Account</a></div>
-                        <div class="w-50 font-11 pb-2 color-white opacity-60 text-end"><a href="forgot" class="color-white">Forgot Credentials</a></div>
-                    </div>
+					<div class="input-style input-transparent no-borders has-icon validate-field mt-4">
+						<i class="fa fa-lock"></i>
+						<input type="password" class="form-control validate-password" id="password" name = "password" placeholder="Password">
+						<label for="password" class="color-green-dark font-10 mt-1">Password</label>
+						<i class="fa fa-times disabled invalid color-red-dark"></i>
+						<i class="fa fa-check disabled valid color-green-dark"></i>
+						<em>(required)</em>
+					</div>
+					
+					<div class="d-flex mt-4 mb-4">
+						<div class="w-50 font-11 pb-2 color-white opacity-60 text-start"><a href="/signup" class="color-white">Create Account</a></div>
+						<div class="w-50 font-11 pb-2 color-white opacity-60 text-end"><a href="forgot" class="color-white">Forgot Credentials</a></div>
+					</div>
+					
+					<div class="row">
+						<input type ="submit" class=" btn btn-full btn-xl shadow-large rounded-s text-uppercase font-900 bg-green-dark" value="Log In"/>
+					</div>
 
-                    <input type ="submit" class="back-button btn btn-full btn-m shadow-large rounded-s text-uppercase font-900 bg-highlight" value="LOGIN"/>
-                    </form>
+					</form>
 
-                 </div>
+				 </div>
 
-            </div>
-            <div class="card-overlay-infinite preload-img" data-src="images/pictures/loginimg3.jpg"></div>
-        </div>
+			</div>
+			<div class="card-overlay bg-black opacity-80"></div>
+			<div class="card-overlay-infinite preload-img" data-src="images/pictures/loginimg3.jpg"></div>
+		</div>
 
-    </div>
-    <!-- End of Page Content--> 
+	</div>
+	<!-- End of Page Content-->
    
  
-    
+	
 </div>
 
 <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>

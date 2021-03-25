@@ -11,17 +11,6 @@ body {
   background-color: #f0f0f0;
 }
 
-myimg {
-  width: 100%;
-  object-fit: cover;
-}
-
-center-block {
-  display: block; 
-  margin-left: auto; 
-  margin-right: auto;
-}
-
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   color: #1f1f1f;
@@ -136,7 +125,7 @@ body {
 }
 
 .theme-dark .header .header-logo {
-  background-image: url(../images/pictures/loginimg.jpg);
+  background-image: url(../images/preload-logo.png);
 }
 
 .theme-light .footer .footer-logo {
@@ -1230,13 +1219,13 @@ body {
 /*Scaling Animation*/
 @keyframes scale-animation {
   0% {
-    transform: scale(1, 1);
+	transform: scale(1, 1);
   }
   50% {
-    transform: scale(1.05, 1.05);
+	transform: scale(1.05, 1.05);
   }
   0% {
-    transform: scale(1, 1);
+	transform: scale(1, 1);
   }
 }
 
@@ -1247,13 +1236,13 @@ body {
 
 @keyframes scale-icon {
   0% {
-    transform: scale(1, 1);
+	transform: scale(1, 1);
   }
   50% {
-    transform: scale(1.3, 1.3);
+	transform: scale(1.3, 1.3);
   }
   0% {
-    transform: scale(1, 1);
+	transform: scale(1, 1);
   }
 }
 
@@ -2272,13 +2261,13 @@ button {
 
 @keyframes infiniteBG {
   0% {
-    transform: translateX(0px);
+	transform: translateX(0px);
   }
   50% {
-    transform: translateX(-1400px);
+	transform: translateX(-1400px);
   }
   100% {
-    transform: translateX(0px);
+	transform: translateX(0px);
   }
 }
 
@@ -2455,7 +2444,7 @@ button {
 }
 
 .ios-input:checked ~ .custom-control-label::before {
-  background-color: #8CC152 !important;
+  background-color: #3B7958 !important;
 }
 
 .ios-switch-icon label::before {
@@ -3484,7 +3473,7 @@ input[type=number] {
   margin-top: 0.5px;
   content: "\f058";
   opacity: 1;
-  color: #A0D468;
+  color: #65B289;
 }
 
 .list-custom-small {
@@ -5243,7 +5232,7 @@ input[type=number] {
   color: #FFF !important;
 }
 
-.theme-dark input:not([type="file"]),
+.theme-dark input:not([type="file"]):not(.btn),
 .theme-dark select,
 .theme-dark textarea {
   color: #FFF !important;
@@ -5467,11 +5456,11 @@ input[type=number] {
 }
 
 .color-green-light {
-  color: #A0D468 !important;
+  color: #65B289 !important;
 }
 
 .bg-green-light {
-  background-color: #A0D468 !important;
+  background-color: #65B289 !important;
   color: #FFF !important;
 }
 
@@ -5486,33 +5475,33 @@ input[type=number] {
 }
 
 .color-green-dark {
-  color: #8CC152 !important;
+  color: #3B7958 !important;
 }
 
 .color-icon-green {
-  stroke: #8CC152 !important;
+  stroke: #3B7958 !important;
   fill: rgba(140, 193, 82, 0.3) !important;
 }
 
 .bg-green-dark {
-  background-color: #8CC152 !important;
+  background-color: #3B7958 !important;
   color: #FFF !important;
 }
 
 .border-green-light {
-  border-color: #A0D468 !important;
+  border-color: #65B289 !important;
 }
 
 .border-green-dark {
-  border-color: #8CC152 !important;
+  border-color: #3B7958 !important;
 }
 
 .focus-green:focus {
-  border-color: #8CC152 !important;
+  border-color: #3B7958 !important;
 }
 
 .gradient-green {
-  background-image: linear-gradient(to bottom, #A0D468, #8CC152);
+  background-image: linear-gradient(to bottom, #65B289, #3B7958);
 }
 
 .color-grass-light {
@@ -6652,10 +6641,10 @@ input[type=number] {
 
 @keyframes splide-loading {
   0% {
-    transform: rotate(0);
+	transform: rotate(0);
   }
   to {
-    transform: rotate(1turn);
+	transform: rotate(1turn);
   }
 }
 
@@ -6930,4 +6919,22 @@ input[type=number] {
 
 .slider-cover-dots .splide__pagination {
   transform: translate(-50%, -40px) !important;
+}
+
+
+
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: auto;
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
