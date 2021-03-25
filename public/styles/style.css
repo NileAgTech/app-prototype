@@ -5086,7 +5086,7 @@ input[type=number] {
 .theme-dark .timeline-body,
 .theme-dark table,
 .theme-dark td {
-  background-color: #1b1d21 !important;
+  background-color: #0f1117 !important;
 }
 
 .theme-dark,
@@ -5266,20 +5266,20 @@ input[type=number] {
 
 /* Generating Color Pack*/
 .color-highlight {
-  color: #DA4453 !important;
+  color: #3B7958 !important;
 }
 
 .bg-highlight {
-  background-color: #DA4453 !important;
+  background-color: #3B7958 !important;
   color: #FFF !important;
 }
 
 .border-highlight {
-  border-color: #DA4453 !important;
+  border-color: #3B7958 !important;
 }
 
 .gradient-highlight {
-  background-image: linear-gradient(to bottom, #ED5565, #DA4453) !important;
+  background-image: linear-gradient(to bottom, #ED5565, #3B7958) !important;
 }
 
 .gradient-menu {
@@ -5426,16 +5426,16 @@ input[type=number] {
 }
 
 .color-highlight-dark {
-  color: #DA4453 !important;
+  color: #3B7958 !important;
 }
 
 .color-icon-highlight {
-  stroke: #DA4453 !important;
+  stroke: #3B7958 !important;
   fill: !important;
 }
 
 .bg-highlight-dark {
-  background-color: #DA4453 !important;
+  background-color: #3B7958 !important;
   color: #FFF !important;
 }
 
@@ -5444,15 +5444,15 @@ input[type=number] {
 }
 
 .border-highlight-dark {
-  border-color: #DA4453 !important;
+  border-color: #3B7958 !important;
 }
 
 .focus-highlight:focus {
-  border-color: #DA4453 !important;
+  border-color: #3B7958 !important;
 }
 
 .gradient-highlight {
-  background-image: linear-gradient(to bottom, #ED5565, #DA4453);
+  background-image: linear-gradient(to bottom, #ED5565, #3B7958);
 }
 
 .color-green-light {
@@ -6414,7 +6414,7 @@ input[type=number] {
 .footer-bar-1 .active-nav i,
 .footer-bar-1 .active-nav span,
 .footer-bar-3 .active-nav i {
-  color: #DA4453 !important;
+  color: #3B7958 !important;
 }
 
 .form-floating-over > .form-control:focus ~ label {
@@ -6937,4 +6937,7 @@ select:-webkit-autofill:focus {
   -webkit-text-fill-color: white;
   -webkit-box-shadow: 0 0 0px 1000px white inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+.theme-dark .loader-main, .theme-dark .instant-article, .theme-dark .divider-icon i, .theme-dark .table tr.even td, .theme-dark .timeline-body, .theme-dark table, .theme-dark td {
+	/* background-color: #1b1d21 !important; */
 }

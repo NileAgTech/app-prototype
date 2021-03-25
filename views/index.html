@@ -5,16 +5,21 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-<title>Nile Tech</title>
+<title>Nile Technologies</title>
 <link rel="stylesheet" type="text/css" href="/styles/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/styles/style.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="fonts/fontawesome/css/all.min.css">
 <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
-<link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+	<link rel="icon" type="image/png" href="images/logo/nile-logo.png"/>
+ <link rel="apple-touch-icon" sizes="180x180" href="images/logo/nile-logo.png">
 	
 	
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+	
+	
+	<style>.d-flex div h1{display: inline;}
+		#satalite_img{width: 100%;}</style>
 </head>
     
 	
@@ -25,10 +30,10 @@
 <div id="page">
     
     <div id="footer-bar" class="footer-bar-1">
-        <a href="index.html" class="active-nav"><i class="fas fa-farm"></i><span>Home</span></a>
-        <a href="index-components.html"><i class="fa fa-star"></i><span>Features</span></a>
-        <a href="index-pages.html"><i class="fa fa-heart"></i><span>Pages</span></a>
-        <a href="index-search.html"><i class="fa fa-search"></i><span>Search</span></a>
+        <a href="index" class="active-nav"><i class="fas fa-farm"></i><span>Home</span></a>
+        <a href="map"><i class="fa fa-map"></i><span>Map</span></a>
+        <a href="index"><i class="fa fa-heart"></i><span>Pages</span></a>
+        <a href="index"><i class="fa fa-search"></i><span>Search</span></a>
         <a href="#" data-menu="menu-settings"><i class="fa fa-cog"></i><span>Settings</span></a>
     </div>
         
@@ -38,7 +43,11 @@
 
         <div class="card card-style">
             <div class="content mb-0">
-                <h1 class="text-center mb-0">Satillite Image of Location</h1>
+				<div class="mt-n2">
+					<div class="divider-icon divider-margins bg-gray-dark mx-5 mt-5"><i class="fas fa-farm font-33 mt-n3 color-green-dark bg-theme"></i></div>
+				</div>
+				<h1 class="text-center font-24">Your Farm</h1>
+				<p class="text-center mt-n2 opacity-50 font-12">How clean is the air?</p>
                 <img id="satalite_img">
             </div>
         </div>
@@ -53,78 +62,78 @@
 
 				<div class="d-flex mb-3">
 					<div class="align-self-center w-100">
-						<h1 class="mb-n2 font-16">Carbon monoxide</h1><span>CO<sup>2</sup></span>
+						<h1 class="mb-n2 font-16">Carbon monoxide</h1> (<span>CO<sup>2</sup></span>)
 						<p class="font-11 opacity-50">Delicious, fresh fruit selection.</p>
 					</div>
 					<div class="align-self-center ms-auto">
-						<h2 id="CO" class="font-24 mb-0">$13<sup>.15</sup></h2>
+						<h2 id="CO" class="font-24 mb-0"></h2>
 					</div>
 				</div>
 				<div class="d-flex mb-3">
 					<div class="align-self-center w-100">
-						<h1 class="mb-n2 font-16">Nitrogen monoxide</h1><span>NO</span>
+						<h1 class="mb-n2 font-16">Nitrogen monoxide</h1> (<span>NO</span>)
 						<p class="font-11 opacity-50">Fresh or Boiled Vegetables.</p>
 					</div>
 					<div class="align-self-center ms-auto">
-						<h2 id="NO" class="font-24 mb-0">$15<sup>.25</sup></h2>
+						<h2 id="NO" class="font-24 mb-0"></h2>
 					</div>
 				</div>
 				<div class="d-flex mb-3">
 					<div class="align-self-center w-100">
-						<h1 class="mb-n2 font-16">Nitrogen dioxide</h1><span>NO<sup>2</sup></span>
+						<h1 class="mb-n2 font-16">Nitrogen dioxide</h1> (<span>NO<sup>2</sup></span>)
 						<p class="font-11 opacity-50">Crispy and Delicious Buffalo Wings.</p>
 					</div>
 					<div class="align-self-center ms-auto">
-						<h2 id="NO2" class="font-24 mb-0">$25<sup>.55</sup></h2>
-					</div>
-				</div>
-				
-				<div class="d-flex mb-3">
-					<div class="align-self-center w-100">
-						<h1 class="mb-n2 font-16">Ozone</h1><span>O<sup>3</sup></span>
-						<p class="font-11 opacity-50">Crispy and Delicious Buffalo Wings.</p>
-					</div>
-					<div class="align-self-center ms-auto">
-						<h2 id="O3" class="font-24 mb-0">$25<sup>.55</sup></h2>
+						<h2 id="NO2" class="font-24 mb-0"></h2>
 					</div>
 				</div>
 				
 				<div class="d-flex mb-3">
 					<div class="align-self-center w-100">
-						<h1 class="mb-n2 font-16">Sulphur dioxide</h1><span>SO<sup>2</sup></span>
+						<h1 class="mb-n2 font-16">Ozone</h1> (<span>O<sup>3</sup></span>)
 						<p class="font-11 opacity-50">Crispy and Delicious Buffalo Wings.</p>
 					</div>
 					<div class="align-self-center ms-auto">
-						<h2 id="SO2" class="font-24 mb-0">$25<sup>.55</sup></h2>
+						<h2 id="O3" class="font-24 mb-0"></h2>
+					</div>
+				</div>
+				
+				<div class="d-flex mb-3">
+					<div class="align-self-center w-100">
+						<h1 class="mb-n2 font-16">Sulphur dioxide</h1> (<span>SO<sup>2</sup></span>)
+						<p class="font-11 opacity-50">Crispy and Delicious Buffalo Wings.</p>
+					</div>
+					<div class="align-self-center ms-auto">
+						<h2 id="SO2" class="font-24 mb-0"></h2>
 					</div>
 				</div>
 				
 				
 				<div class="d-flex mb-3">
 					<div class="align-self-center w-100">
-						<h1 class="mb-n2 font-16">Fine particles matter</h1><span>FPM</span>
+						<h1 class="mb-n2 font-16">Fine particles matter</h1> (<span>FPM</span>)
 						<p class="font-11 opacity-50">Crispy and Delicious Buffalo Wings.</p>
 					</div>
 					<div class="align-self-center ms-auto">
-						<h2 id="PM25" class="font-24 mb-0">$25<sup>.55</sup></h2>
+						<h2 id="PM25" class="font-24 mb-0"></h2>
 					</div>
 				</div>
 				<div class="d-flex mb-3">
 					<div class="align-self-center w-100">
-						<h1 class="mb-n2 font-16">Coarse particulate matter</h1><span>CPM</span>
+						<h1 class="mb-n2 font-16">Coarse particulate matter</h1> (<span>CPM</span>)
 						<p class="font-11 opacity-50">Crispy and Delicious Buffalo Wings.</p>
 					</div>
 					<div class="align-self-center ms-auto">
-						<h2 id="PM10" class="font-24 mb-0">$25<sup>.55</sup></h2>
+						<h2 id="PM10" class="font-24 mb-0"></h2>
 					</div>
 				</div>
 				<div class="d-flex mb-3">
 					<div class="align-self-center w-100">
-						<h1 class="mb-n2 font-16">Ammonia</h1><span>NH<sup>3</sup></span>
+						<h1 class="mb-n2 font-16">Ammonia</h1> (<span>NH<sup>3</sup></span>)
 						<p class="font-11 opacity-50">Crispy and Delicious Buffalo Wings.</p>
 					</div>
 					<div class="align-self-center ms-auto">
-						<h2 id="NH3" class="font-24 mb-0">$25<sup>.55</sup></h2>
+						<h2 id="NH3" class="font-24 mb-0"></h2>
 					</div>
 				</div>
 			</div>
@@ -134,52 +143,55 @@
 		
 		
 		<div class="card card-style">
-					<div class="content mb-0">
-						<h3>Projected Harvest</h3>
-						<p>
-							Show details about demographics.
-						</p>
-						<!--- Info Group-->
+			<div class="mt-n2">
+				<div class="divider-icon divider-margins bg-gray-dark mx-5 mt-5"><i class="fas fa-seedling font-33 mt-n3 color-green-dark bg-theme"></i></div>
+			</div>
+			<div class="content mt-n3 mb-0">
+				<h1 class="text-center font-24">Projected Harvest</h1>
+				<p class="text-center mt-n2 opacity-50 font-12">How clean is the air?</p>
+				<div class="content mb-0">
+					
+						<!--- Wheat-->
 						<div class="d-flex mb-4">
 							<div class="me-auto">
 								<i class="fa fa-circle font-32 pe-2 color-green-dark"></i>
 							</div>
 							<div class="me-auto pe-2">
 								<h1 class="font-24 mt-n1 text-center">90%</h1>
-								<p class="mt-n3 font-10 text-center">Group Title</p>
+								<p class="mt-n3 font-10 text-center">Wheat</p>
 							</div>
-							<div class="ms-auto">
-								<i class="fas fa-wheat color-green-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-wheat color-green-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-wheat color-green-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-wheat color-green-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-wheat color-green-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-wheat color-green-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-wheat color-green-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-wheat color-green-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-wheat color-green-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-wheat opacity-30 px-1 font-27"></i>
-							</div>
+							<div class="ms-auto"><i class="fas fa-wheat color-green-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-wheat color-green-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-wheat color-green-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-wheat color-green-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-wheat color-green-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-wheat color-green-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-wheat color-green-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-wheat color-green-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-wheat color-green-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-wheat opacity-30 px-1 font-27"></i></div>
 						</div>
-						<!--- Info Group-->
+						
+						<!--- Apples-->
+						<div class="d-flex mb-4">
+							<div class="me-auto">
+								<i class="fa fa-circle font-32 pe-2 color-red-dark"></i>
+							</div>
+							<div class="me-auto pe-2">
+								<h1 class="font-24 mt-n1 text-center">70%</h1>
+								<p class="mt-n3 font-10 text-center">Apples</p></div>
+							<div class="ms-auto"><i class="fas fa-apple-alt color-red-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-apple-alt color-red-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-apple-alt color-red-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-apple-alt color-red-dark  px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-apple-alt color-red-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-apple-alt color-red-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-apple-alt color-red-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-apple-alt opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-apple-alt opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-apple-alt opacity-30 px-1 font-27"></i></div>
+						</div>
+						<!--- Corn-->
 						<div class="d-flex mb-4">
 							<div class="me-auto">
 								<i class="fa fa-circle font-32 pe-2 color-yellow-dark"></i>
@@ -188,81 +200,62 @@
 								<h1 class="font-24 mt-n1 text-center">50%</h1>
 								<p class="mt-n3 font-10 text-center">Corn</p>
 							</div>
-							<div class="ms-auto">
-								<i class="fas fa-corn color-yellow-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-corn color-yellow-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-corn color-yellow-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-corn color-yellow-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-corn color-yellow-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-corn opacity-30 px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-corn opacity-30 px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-corn opacity-30 px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-corn opacity-30 px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-corn opacity-30 px-1 font-27"></i>
-							</div>
+							<div class="ms-auto"><i class="fas fa-corn color-yellow-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-corn color-yellow-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-corn color-yellow-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-corn color-yellow-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-corn color-yellow-dark px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-corn opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-corn opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-corn opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-corn opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-corn opacity-30 px-1 font-27"></i></div>
 						</div>
-						<!--- Info Group-->
+						
+						<!--- Carrot-->
 						<div class="d-flex mb-4">
 							<div class="me-auto">
-								<i class="fa fa-circle font-32 pe-2 color-red-dark"></i>
+								<i class="fa fa-circle font-32 pe-2 color-orange-light"></i>
 							</div>
 							<div class="me-auto pe-2">
 								<h1 class="font-24 mt-n1 text-center">30%</h1>
-								<p class="mt-n3 font-10 text-center">Apples</p>
+								<p class="mt-n3 font-10 text-center">Carrots</p></div>
+							<div class="ms-auto"><i class="fas fa-carrot color-orange-light px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-carrot color-orange-light px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-carrot color-orange-light px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-carrot opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-carrot opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-carrot opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-carrot opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-carrot opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-carrot opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-carrot opacity-30 px-1 font-27"></i></div>
+						</div>
+						
+						
+						<!--- Peppers-->
+						<div class="d-flex mb-4">
+							<div class="me-auto">
+								<i class="fa fa-circle font-32 pe-2 color-red-light"></i>
 							</div>
-							<div class="ms-auto">
-								<i class="fas fa-apple-alt color-red-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-apple-alt color-red-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-apple-alt color-red-dark px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-apple-alt opacity-30 px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-apple-alt opacity-30 px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-apple-alt opacity-30 px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-apple-alt opacity-30 px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-apple-alt opacity-30 px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-apple-alt opacity-30 px-1 font-27"></i>
-							</div>
-							<div class="ms-auto">
-								<i class="fas fa-apple-alt opacity-30 px-1 font-27"></i>
-							</div>
+							<div class="me-auto pe-2">
+								<h1 class="font-24 mt-n1 text-center">30%</h1>
+								<p class="mt-n3 font-10 text-center">Peppers</p></div>
+							<div class="ms-auto"><i class="fas fa-pepper-hot color-red-light px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-pepper-hot color-red-light px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-pepper-hot color-red-light px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-pepper-hot opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-pepper-hot opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-pepper-hot opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-pepper-hot opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-pepper-hot opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-pepper-hot opacity-30 px-1 font-27"></i></div>
+							<div class="ms-auto"><i class="fas fa-pepper-hot opacity-30 px-1 font-27"></i></div>
 						</div>
 					</div>
 				</div>
         
-		
+		</div>
 		
 		<div class=" card card-style">
 			
@@ -277,8 +270,8 @@
         <div class="footer card card-style">
 			
 			
-            <a href="#" class="footer-title"><span class="color-green-dark">NileTech</span></a>
-            <p class="footer-text"><span>Made with <i class="fa fa-heart color-green-dark font-16 ps-2 pe-2"></i> by Enabled</span><br><br>Powered by the best Mobile Website Developer on Envato Market. Elite Quality. Elite Products.</p>
+			<img  class="preload-img" src="images/logo/nile.png" width="15%" style="min-width:100px;margin: 0 auto; left: 0;right: 0;opacity:0.6">
+  <p class="footer-text"><span>Nile <span class="color-green-dark ">Technologies</span></span></p>
           
 		  
 		  <div class="text-center mb-3">
@@ -288,7 +281,7 @@
                 <a href="#" data-menu="menu-share" class="icon icon-xs rounded-sm me-1 shadow-l bg-green-dark"><i class="fa fa-share-alt"></i></a>
                 <a href="#" class="back-to-top icon icon-xs rounded-sm shadow-l bg-dark-light"><i class="fa fa-angle-up"></i></a>
             </div>
-            <p class="footer-copyright">Copyright &copy; Nile Technologies <span id="copyright-year">2021</span>. All Rights Reserved.</p>
+            <p class="footer-copyright">Copyright &copy; Nile Technologies 2021. All Rights Reserved.</p>
             <p class="footer-links"><a href="#" class="color-green-dark">Privacy Policy</a> | <a href="#" class="color-green-dark">Terms and Conditions</a> | <a href="#" class="back-to-top color-green-dark"> Back to Top</a></p>
             <div class="clear"></div>
         </div>  

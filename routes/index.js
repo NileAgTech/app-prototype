@@ -21,21 +21,16 @@ router.get('/', async (req, res) => {
 });
 
 //get index
-router.get('/index',async (req, res) => {
-  res.render('index');
-});
+router.get('/index',	async (req,res) => {  res.render('index');	});
+router.get('/login',	async (req,res) => {  res.render('login');	});
+router.get('/signup',	async (req,res) => {  res.render('signup');	});
+router.get('/forgot',	async (req,res) => {  res.render('forgot');	});
+router.get('/menu',		async (req,res) => {  res.render('menu');	});
+router.get('/welcome',	async (req,res) => {  res.render('welcome');});
+router.get('/map',		async (req,res) => {  res.render('map');	});
 
 
-router.get('/login', async (req,res) => {
-  res.render('login')
-})
-router.get('/signup', async (req,res) => {
-  res.render('signup')
-})
-
-router.get('/menu', async (req,res) => {
-  res.render('menu')
-})
+// signup
 router.post('/signup', async (req, res) => {
 
   //get username and password
@@ -46,16 +41,17 @@ router.post('/signup', async (req, res) => {
   const result = await db.registerUser(email,passwordHash);
 
   if (result){
-    res.render('login')
+    res.render('login');
   }
   else {
-    res.render('signup')
+    res.render('signup');
   }
 
 })
 
-router.post('/login', async (req, res) => {
 
+// login
+router.post('/login', async (req, res) => {
   email = req.body.email
   const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
   
