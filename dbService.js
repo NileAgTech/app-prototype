@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt');
 const url = 'mongodb://localhost:27017/';
 let instance = null;
 
+var usersCol;
+var db;
+
 try {
 
     MongoClient
@@ -12,8 +15,8 @@ try {
         })
         .then(client => {
             console.log('Connected to Database')
-            const db = client.db('app-prototype')
-            const usersCol = db.collection('users')
+			db = client.db('app-prototype')
+			usersCol = db.collection('users')
     });
 
 } catch (error){

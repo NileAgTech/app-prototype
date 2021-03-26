@@ -28,6 +28,8 @@ router.get('/forgot',	async (req,res) => {  res.render('forgot');	});
 router.get('/menu',		async (req,res) => {  res.render('menu');	});
 router.get('/welcome',	async (req,res) => {  res.render('welcome');});
 router.get('/map',		async (req,res) => {  res.render('map');	});
+router.get('/weather',	async (req,res) => {  res.render('weather');	});
+router.get('/location',	async (req,res) => {  res.render('location');	});
 
 
 // signup

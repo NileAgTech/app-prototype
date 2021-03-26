@@ -1400,3 +1400,21 @@ document.addEventListener('DOMContentLoaded', () => {
     init_template();
 });
 
+
+
+			function toCelsius(e) {
+				var temp =(e * 9/5) + 32;
+			
+													
+													return temp
+													}
+
+			function toFahrenheit(e) {
+					var temp = (e - 273.15) * (9/5)+32;
+								return temp
+			}
+
+		//	function toKelvin(e){
+		//		document.converter.celsius.value = e - 273.15;
+		//		document.converter.fahrenheit.value=((e - 273.15)*9/5)+32;
+		//	}

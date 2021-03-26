@@ -36,44 +36,42 @@
 					</div>
 					
 					
+					<img hidden class="preload-img" src="images/logo/nile-logo.png" width="10%" style="">
 			   
-			   
-					<h1 class="color-white text-center text-uppercase font-900 fa-4x">
-						<img hidden class="preload-img" src="images/logo/nile-logo.png" width="10%" style="">
- LOGIN</h1>
-					<p class="color-green-dark text-center font-12">
-						Log in to Nile Tech
+					<h1 class="color-white text-center text-uppercase font-900 fa-4x" translate="login">LOGIN</h1>
+					<p class="color-green-dark text-center font-12" translate="Log in to Nile Technologies">
+					Log in to Nile Technologies
 					</p>
 					
 					<form method ="post" action="/login">
 
 					<div class="input-style input-transparent no-borders has-icon validate-field">
 						<i class="fa fa-user"></i>
-						<input type="email" class="form-control validate-email " id="email" name = "email" placeholder="Email">
-						<label for="email" class="color-green-dark font-10 mt-1">Email</label>
+						<input type="email" class="form-control validate-email " id="email" name = "email" placeholder="Email"  translate="email">
+						<label for="email" class="color-green-dark font-10 mt-1" translate="email">Email</label>
 						<i class="fa fa-times disabled invalid color-red-dark"></i>
 						<i class="fa fa-check disabled valid color-green-dark"></i>
-						<em>(required)</em>
+						<em translate="required">(required)</em>
 					</div>
 
 					<div class="input-style input-transparent no-borders has-icon validate-field mt-4">
 						<i class="fa fa-lock"></i>
-						<input type="password" class="form-control validate-password" id="password" name = "password" placeholder="Password">
-						<label for="password" class="color-green-dark font-10 mt-1">Password</label>
+						<input type="password" class="form-control validate-password" id="password" name = "password" placeholder="Password"  translate="password">
+						<label for="password" class="color-green-dark font-10 mt-1" translate="password">Password</label>
 						<i class="fa fa-times disabled invalid color-red-dark"></i>
 						<i class="fa fa-check disabled valid color-green-dark"></i>
-						<em>(required)</em>
+						<em translate="required">(required)</em>
 					</div>
 					
 					<div class="row">
-						<input type ="submit" class=" btn btn-full btn-xl shadow-large rounded-s text-uppercase font-900 bg-green-dark" value="Log In"/>
+						<input type ="submit" class=" btn btn-full btn-xl shadow-large rounded-s text-uppercase font-900 bg-green-dark" value="Log In" translate="login"/>
 					</div>
 					
 					
 					
 					<div class="d-flex mt-4 mb-4">
-						<div class="w-50 font-11 pb-2 color-white opacity-60 text-start"><a href="/signup" class="color-white">Create Account</a></div>
-						<div class="w-50 font-11 pb-2 color-white opacity-60 text-end"><a href="forgot" class="color-white">Forgot Credentials</a></div>
+						<div class="w-50 font-11 pb-2 color-white opacity-60 text-start"><a href="/signup" class="color-white" translate="Create Account">Create Account</a></div>
+						<div class="w-50 font-11 pb-2 color-white opacity-60 text-end"><a href="forgot" class="color-white" translate="Forgot Credentials">Forgot Credentials</a></div>
 					</div>
 					
 					
@@ -97,4 +95,80 @@
 
 <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="/scripts/custom.js"></script>
+<script type="text/javascript" src="/scripts/jquery.js"></script>
+
+
+
+<script>
+lang = 'id'
+	
+	var translations = {
+		
+		"login":{
+			
+			en:"Login",
+			id:"Gabung"
+			
+		},
+		
+		
+		"Log in to Nile Technologies":{
+			
+			en:"Log in to Nile Technologies",
+			id:"Masuk ke Nile Technologies"
+			
+		},
+		
+		
+		"email":{
+			
+			en:"Email",
+			id:"Surel"
+			
+		},
+		
+		"password":{
+			
+			en:"Password",
+			id:"Kata sandi"
+			
+		},
+		
+		"required":{
+			
+			en:"(required)",
+			id:"(yg dibutuhkan)"
+			
+		},
+		
+		"Create Account":{
+			
+			en:"Create Account",
+			id:"Buat Akun"
+			
+		},
+		
+		"Forgot Credentials":{
+			
+			en:"Forgot Credentials",
+			id:"Lupa Kredensial"
+			
+		}
+		
+		
+		
+		
+	}
+
+
+$( "*[translate]" ).each(function( index ) {
+  console.log( index + ": " + $( this ).text() );
+  console.log(translations[$( this ).attr('translate')][lang])
+  
+  var newWord = translations[$( this ).attr('translate')][lang]
+$(this).text(newWord).attr('placeholder',newWord).val(newWord)
+  
+  
+});
+</script>
 </body>
