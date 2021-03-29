@@ -574,8 +574,10 @@ function doSomething(l1, l2){
 	lat = l1
 	lon = l2
 	console.log(lat,lon)
-	
-initMap()
+	localStorage.setItem('lat', lat);
+	localStorage.setItem('lon',lon)
+
+	initMap()
 }
 
 function success(position) {
@@ -768,7 +770,7 @@ var lat1, lon1;
 
 lat1 = parseFloat(localStorage.getItem("lat"));
 lon1= parseFloat(localStorage.getItem("lon"))
-console.log(		lat1, lon1)
+console.log(lat1, lon1)
 
 
 // agro api satillite data
@@ -838,23 +840,29 @@ function searchSatillities(polyID,key){
     var start_date
     var end_date
 
+	console.log(polyID)
+	console.log(key)
     const day = ((60*60*24))
-    const maxDays2Search = 10
+    const maxDays2Search = 100
 
-    end_date = Math.round(+new Date()/1000);
+    end_date = Math.round(new Date()/1000);
     start_date = end_date - (maxDays2Search*day)
+
+	console.log(end_date)
+	console.log(start_date)
 
     new Promise((resolve, reject) => {
             $.ajax({
                 dataType: "json",
-                //contentType: "application/json",
+                contentType: "application/json",
                 url: `http://api.agromonitoring.com/agro/1.0/image/search?start=${start_date}&end=${end_date}&polyid=${polyID}&appid=${key}`,
                 type: "GET",
                 success: function(data){
 					
 					console.log(data)
 					console.log(data.length)
-                    mostRecent = data[0]
+					var max_len = data.length -1
+                    mostRecent = data[max_len]
                     url = mostRecent['image']['truecolor']
                     $('#satalite_img').attr("src", url);
 					
@@ -884,20 +892,20 @@ function showDate(e){
 	}
 
 // search satalites
-var api_key = '06bfa60682e4cbcd473244d9c6b9ddb5';
+var api_key = '92746ad71c2ebfbb81d42d2ed6d152ff';
 var id = makeid(7)
 
 						  
 						  
-console.log(lat1, lon1)
+console.log("okay" + lat1, lon1)
 		
 						  
 						  
-						  cor1 = [lon1,	    lat1]
-						  cor2 = [lon1-0.01, lat1]
-						  cor3 = [lon1-0.01, lat1+0.01]
-						  cor4 = [lon1,     lat1+0.01]
-						  cor5 = [lon1,     lat1]
+cor1 = [lon1,	    lat1]
+cor2 = [lon1-0.01, lat1]
+cor3 = [lon1-0.01, lat1+0.01]
+cor4 = [lon1,     lat1+0.01]
+cor5 = [lon1,     lat1]
 						  
 						  
 						  
@@ -909,8 +917,9 @@ cor4 = [-121,   37.6792]
 cor5 = [-121,   37.6683]
 */
 
-polyID = createPoly(cor1, cor2, cor3, cor4, cor5, api_key, id)
-searchSatillities(polyID, api_key)
+//polyID = createPoly(cor1, cor2, cor3, cor4, cor5, api_key, id)
+
+searchSatillities('606167e189177039338ef7d6', api_key)
 
 						  
 						  
