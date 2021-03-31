@@ -1,5 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const url = 'mongodb://localhost:27017/';
 let instance = null;

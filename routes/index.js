@@ -1,7 +1,7 @@
 var express = require('express');
 var dbService = require('../dbService');
 var router = express.Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 /* Mongo DB options */
 var url = 'mongodb://localhost:27017/';
