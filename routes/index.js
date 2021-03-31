@@ -35,7 +35,19 @@ router.get('/location',	async (req,res) => {  res.render('location');	});
 router.post('/signup', async (req, res) => {
 
   //get username and password
-  email = req.body.email
+  const email = req.body.email
+
+  //check if email exists
+  if (email === null){
+    res.render('signup', {message: "Please Enter a valid email"});
+  }
+
+  if (req.body.password === null){
+    res.render('signup', {message: "Please Enter a valid email"});
+  }
+
+
+
   const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
   const db = dbService.getDbServiceInstance();
 
