@@ -83,6 +83,13 @@ class DbService {
             return error;
         }
     }
+
+    /*
+    async addMap()
+    */
+
+
+
 }
 
 module.exports = DbService;

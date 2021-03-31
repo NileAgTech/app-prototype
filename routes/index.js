@@ -1,13 +1,12 @@
 var express = require('express');
 var dbService = require('../dbService');
 var router = express.Router();
-var MongoClient = require('mongodb').MongoClient;
 const bcrypt = require('bcrypt');
 
+/* Mongo DB options */
 var url = 'mongodb://localhost:27017/';
 var datab = 'app-prototype'
 const saltRounds = 10;
-
 
 // welcome page
 router.get('/welcome', async (req,res) => {
@@ -17,7 +16,7 @@ router.get('/welcome', async (req,res) => {
 
 /* GET login page. */
 router.get('/', async (req, res) => {
-  res.render('welcome', { title: 'Express' });
+  res.render('welcome');
 });
 
 //get index
@@ -43,10 +42,10 @@ router.post('/signup', async (req, res) => {
   const message = await db.registerUser(email,passwordHash);
 
   if (message === null){
-    res.redirect('login');
+    res.redirect('location');
   }
   else {
-    res.render('signup', {error: message});
+    res.render('signup', {message: message});
   }
 
 })
@@ -62,10 +61,23 @@ router.post('/login', async (req, res) => {
   if (message === null){
     res.redirect('index')
   } else{
-    res.render('login', {error: message})
+    res.render('login', {message: message})
   }
 
 })
+
+//create map
+
+router.post('/createmap', async (req, res) => {
+  
+  const db = dbService.getDbServiceInstance();
+  //const message = await db.addMap(email,req.body.password);
+
+  message = "Registered Successfully"
+  res.render('login', {message: message})
+
+})
+
 
 
 module.exports = router;
