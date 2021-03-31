@@ -40,13 +40,13 @@ router.post('/signup', async (req, res) => {
   const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
   const db = dbService.getDbServiceInstance();
 
-  const result = await db.registerUser(email,passwordHash);
+  const message = await db.registerUser(email,passwordHash);
 
-  if (result){
-    res.render('login');
+  if (message === null){
+    res.redirect('login');
   }
   else {
-    res.render('signup');
+    res.render('signup', {error: message});
   }
 
 })
@@ -55,15 +55,14 @@ router.post('/signup', async (req, res) => {
 // login
 router.post('/login', async (req, res) => {
   email = req.body.email
-  const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
   
   const db = dbService.getDbServiceInstance();
-  const result = await db.signIn(email,passwordHash);
+  const message = await db.signIn(email,req.body.password);
 
-  if (result){
+  if (message === null){
     res.redirect('index')
   } else{
-    res,render('login')
+    res.render('login', {error: message})
   }
 
 })

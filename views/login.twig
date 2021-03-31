@@ -42,6 +42,7 @@
 					<p class="color-green-dark text-center font-12" translate="Log in to Nile Technologies">
 					Log in to Nile Technologies
 					</p>
+					<p class="color-red text-center text-uppercase font-18"> {{ error }}</p>
 					
 					<form method ="post" action="/login">
 
@@ -100,6 +101,7 @@
 
 
 <script>
+/*
 lang = 'id'
 	
 	var translations = {
@@ -167,7 +169,7 @@ $( "*[translate]" ).each(function( index ) {
   
   var newWord = translations[$( this ).attr('translate')][lang]
 $(this).text(newWord).attr('placeholder',newWord).val(newWord)
-  
+*/
   
 });
 </script>

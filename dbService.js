@@ -31,7 +31,10 @@ class DbService {
     async registerUser(email, passwordHash){
         try {
 
-            check = await usersCol.findOne({"email": email})
+            //check if user exists
+            var check = await usersCol.findOne({"email": email})
+
+            //create new user
             if (check === null){
       
                 var user = {
@@ -40,7 +43,11 @@ class DbService {
                 }
 
                 await usersCol.insertOne(user)
-                return user;
+                return null;
+
+            //if user already exists
+            } else {
+                return "User already exists"
             }
 
         } catch (error) {
@@ -49,14 +56,26 @@ class DbService {
         }
     }
 
-    async signIn(email, passwordHash){
+    async signIn(email, enteredPassword){
         try {
 
-            user = await usersCol.findOne({"email": email})
-            var password = user.password
-            const passwordMatches = await bcrypt.compare(passwordHash, password);
-            if (passwordMatches){
-                return user;
+            //pull user from database
+            var user = await usersCol.findOne({"email": email})
+
+            if (user){
+
+                var password = user.password
+                console.log(user)
+                console.log(user.password)
+                const passwordMatches = await bcrypt.compare(enteredPassword, password);
+                if (passwordMatches){
+                    return null
+                } else{
+                    return "Incorrect password"
+                }
+
+            } else{
+                return "Username not found"
             }
 
         } catch (error) {
