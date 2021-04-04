@@ -84,9 +84,24 @@ class DbService {
         }
     }
 
-    /*
-    async addMap()
-    */
+
+    async addMap(email, lat, long, coordinates){
+        try{
+            var newItem = {
+                "latitude": lat,
+                "longitude": long,
+                "coordinates": coordinates
+            }
+
+            await usersCol.updateOne({"email": email}, { $set: newItem });
+
+        } catch (error){
+            console.log(error)
+            return error
+        }
+
+    }
+
 
 
 

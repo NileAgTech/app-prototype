@@ -31,7 +31,7 @@
 		
 	<div class="page-content header-clear-small">
 	
-	<form method ="post" action="/createmap">
+	<form method ="get" action="/login">
 		
 
 		<div class="card card-style">
@@ -50,7 +50,7 @@
 			<br>
 			<br>
 			<input type="hidden" name="first" value="" size ="40"/>
-			<input type ="submit" class=" btn btn-full btn-xl shadow-large rounded-s text-uppercase font-900 bg-green-dark" value="Confirm Location"/>
+			<button id= 'store_btn' type ="submit" class=" btn btn-full btn-xl shadow-large rounded-s text-uppercase font-900 bg-green-dark">Confirm Location</button>
 			<br>
 		</div>
 	<form>
@@ -76,6 +76,7 @@
 
 <script>
 
+var email = '{{ email }}'
 var lat, lon;
 	// Note: This example requires that you consent to location sharing when
 	// prompted by your browser. If you see the error "The Geolocation service
@@ -103,6 +104,23 @@ bbox = [
 					 ]
 		 
 		 console.log(bbox);
+
+
+		 document.getElementById('store_btn').onclick = function(){
+
+			 data2send = [email,lat,lon,bbox]
+			 new Promise((resolve, reject) => {
+            	$.ajax({
+                	dataType: "json",
+                	url: '/createmap',
+                	type: "POST",
+					data: JSON.stringify(data2send),
+                	success: resolve
+            })
+        });
+
+
+		 }
 		 
 		 
 		 

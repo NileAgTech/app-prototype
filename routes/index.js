@@ -54,7 +54,7 @@ router.post('/signup', async (req, res) => {
   const message = await db.registerUser(email,passwordHash);
 
   if (message === null){
-    res.redirect('location');
+    res.render('location', {email: email});
   }
   else {
     res.render('signup', {message: message});
@@ -71,9 +71,13 @@ router.post('/login', async (req, res) => {
   const message = await db.signIn(email,req.body.password);
 
   if (message === null){
+    
     res.redirect('index')
+
   } else{
+
     res.render('login', {message: message})
+
   }
 
 })
@@ -82,11 +86,18 @@ router.post('/login', async (req, res) => {
 
 router.post('/createmap', async (req, res) => {
   
-  const db = dbService.getDbServiceInstance();
-  //const message = await db.addMap(email,req.body.password);
+  let group = Object.keys(req.body);
+  //group = JSON.parse(group)
 
-  message = "Registered Successfully"
-  res.render('login', {message: message})
+  console.log(group)
+  email = group[0]
+  lat = group[1]
+  lon = group[2]
+  coordinates = group[3]
+
+  const db = dbService.getDbServiceInstance();
+  const message = await db.addMap(email,lat,lon,coordinates);
+
 
 })
 
