@@ -476,7 +476,7 @@ function doSomething(l1, l2){
 	
 	$.ajax({
 	  dataType: "json",
-	  url: 'http://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&appid='+appid,
+	  url: 'https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&appid='+appid,
 	  //data: data,
 	  success: function(data){
 	  
@@ -489,7 +489,7 @@ function doSomething(l1, l2){
 	  var icn = value.weather[0].icon
 	  console.log(desc)
 	  
-	$('.days a .ms-auto').eq(index).append('<img src="http://openweathermap.org/img/wn/'+icn+'@2x.png">')
+	$('.days a .ms-auto').eq(index).append('<img src="https://openweathermap.org/img/wn/'+icn+'@2x.png">')
 	
 	
 	console.log(value)
@@ -565,7 +565,7 @@ var appid = '2cf8e43f22320845ed1cd549555dc43d';
 		  
 		  // polition data
 		
-		  $.getJSON('http://api.openweathermap.org/data/2.5/air_pollution?lat='+lat+'&lon='+lon+'&appid='+appid, function(data){
+		  $.getJSON('https://api.openweathermap.org/data/2.5/air_pollution?lat='+lat+'&lon='+lon+'&appid='+appid, function(data){
 			//console.log(data.weather[0].main);
 
 			
@@ -608,7 +608,7 @@ var appid = '2cf8e43f22320845ed1cd549555dc43d';
 		  
 		  
 		  // one call API
-		 // $.getJSON('http://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&appid='+appid, function(data){
+		 // $.getJSON('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&appid='+appid, function(data){
 			//console.log(data.weather[0].main);
 		//	console.log(data);
 		  //});
@@ -623,7 +623,7 @@ var appid = '2cf8e43f22320845ed1cd549555dc43d';
 
 	function getWeatherAPIURL(lat, lon) {
 	  var appid = '2cf8e43f22320845ed1cd549555dc43d';
-	  return 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid='+appid;
+	  return 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid='+appid;
 	}
 
 	  

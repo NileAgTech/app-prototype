@@ -8,7 +8,17 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var https = require('https');
+var http = require('http');
+var fs = require('fs');
+
 var app = express();
+
+// path to security certs
+var options = {
+  key: fs.readFileSync('/etc/ssl/private/private.key'),
+  cert: fs.readFileSync('/etc/ssl/certificate.crt')
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,5 +45,12 @@ app.use((req, res, next) => {
   next();
 });
 
-app.listen(3000);
-console.log('listening on port 3000');
+// setup https server
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(options, app);
+
+httpServer.listen(8080);
+httpsServer.listen(443);
+
+//app.listen(3000);
+console.log('listening on port 8080 AND https on 443');
