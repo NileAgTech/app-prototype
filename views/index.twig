@@ -624,7 +624,7 @@ const watchID = navigator.geolocation.watchPosition(success, error, options);
 		  
 		  // polition data
 		  var appid = '2cf8e43f22320845ed1cd549555dc43d';
-		  $.getJSON('http://api.openweathermap.org/data/2.5/air_pollution?lat='+lat+'&lon='+lon+'&appid='+appid, function(data){
+		  $.getJSON('https://api.openweathermap.org/data/2.5/air_pollution?lat='+lat+'&lon='+lon+'&appid='+appid, function(data){
 			//console.log(data.weather[0].main);
 
 			
@@ -667,7 +667,7 @@ const watchID = navigator.geolocation.watchPosition(success, error, options);
 		  
 		  
 		  // one call API
-		  $.getJSON('http://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&appid='+appid, function(data){
+		  $.getJSON('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&appid='+appid, function(data){
 			//console.log(data.weather[0].main);
 			console.log(data);
 		  });
@@ -683,11 +683,11 @@ const watchID = navigator.geolocation.watchPosition(success, error, options);
 
 	function getWeatherAPIURL(lat, lon) {
 	  var appid = '2cf8e43f22320845ed1cd549555dc43d';
-	  return 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid='+appid;
+	  return 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid='+appid;
 	}
 
 
-//http://maps.openweathermap.org/maps/2.0/weather/TA2/20/'+lat+'/'+lon+'?date=1527811200&opacity=0.9&fill_bound=true&palette=0:FF0000;10:00FF00;20:0000FF&appid=2cf8e43f22320845ed1cd549555dc43d
+//https://maps.openweathermap.org/maps/2.0/weather/TA2/20/'+lat+'/'+lon+'?date=1527811200&opacity=0.9&fill_bound=true&palette=0:FF0000;10:00FF00;20:0000FF&appid=2cf8e43f22320845ed1cd549555dc43d
 
 	//getWeatherData();
 	
@@ -725,7 +725,7 @@ const watchID = navigator.geolocation.watchPosition(success, error, options);
 			$('#city').text(city);
 			$('#state').text(region);
 		   $('#temp').text(tempF); //Show Fahrenheit by Default
-		   var weatherIcon = 'http://openweathermap.org/img/w/' + icon + '.png';
+		   var weatherIcon = 'https://openweathermap.org/img/w/' + icon + '.png';
 			$('#wIcon').html('<img src=' + weatherIcon + '>');
 
 
@@ -819,7 +819,7 @@ function createPoly(cor1, cor2, cor3, cor4, cor5, key, id){
             $.ajax({
                 dataType: "json",
                 contentType: "application/json",
-                url: `http://api.agromonitoring.com/agro/1.0/polygons?appid=${key}`,
+                url: `https://api.agromonitoring.com/agro/1.0/polygons?appid=${key}`,
                 type: "POST",
                 async: false,
                 data: JSON.stringify(json), 
@@ -857,7 +857,7 @@ function searchSatillities(polyID,key){
             $.ajax({
                 dataType: "json",
                 contentType: "application/json",
-                url: `http://api.agromonitoring.com/agro/1.0/image/search?start=${start_date}&end=${end_date}&polyid=${polyID}&appid=${key}`,
+                url: `https://api.agromonitoring.com/agro/1.0/image/search?start=${start_date}&end=${end_date}&polyid=${polyID}&appid=${key}`,
                 type: "GET",
                 success: function(data){
 					
