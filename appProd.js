@@ -14,6 +14,14 @@ var fs = require('fs');
 
 var app = express();
 
+// path to security certs
+
+var options = {
+  key: fs.readFileSync('/etc/ssl/private/private.key'),
+  cert: fs.readFileSync('/etc/ssl/certificate.crt')
+};
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile)
@@ -39,9 +47,12 @@ app.use((req, res, next) => {
   next();
 });
 
+// setup https server
 var httpServer = http.createServer(app);
+var httpsServer = https.createServer(options, app);
 
 httpServer.listen(8080);
+httpsServer.listen(443);
 
 //app.listen(3000);
-console.log('listening on port 8080');
+console.log('listening on port 8080 AND https on 443');
