@@ -97,10 +97,10 @@ var lat, lon;
 		 // send the new bounds back to your server
 		 
 bbox = [
-					 [map.getBounds().getSouthWest().lat(),map.getBounds().getSouthWest().lng()],
+					 [map.getBounds().getSouthWest().lat(),map.getBounds().getNorthEast().lng()],
 					 [map.getBounds().getNorthEast().lat(),map.getBounds().getNorthEast().lng()],
-					 [map.getBounds().getSouthWest().lat(),map.getBounds().getSouthWest().lng()],
-					 [map.getBounds().getNorthEast().lat(),map.getBounds().getNorthEast().lng()],
+					 [map.getBounds().getNorthEast().lat(),map.getBounds().getSouthWest().lng()],
+					 [map.getBounds().getSouthWest().lat(),map.getBounds().getSouthWest().lng()]
 					 ]
 		 
 		 console.log(bbox);

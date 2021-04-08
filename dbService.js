@@ -102,6 +102,24 @@ class DbService {
 
     }
 
+    async getUser(email){
+
+        try{
+            var user = await usersCol.findOne({"email": email})
+            return user
+
+        }
+
+        catch (error){
+            console.log(error)
+            return error
+        }
+
+
+
+
+    }
+
 
 
 
