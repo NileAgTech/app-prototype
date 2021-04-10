@@ -9,9 +9,6 @@ var url = 'mongodb://localhost:27017/';
 var datab = 'app-prototype'
 const saltRounds = 10;
 
-//satillite api 
-var spectatorKey = '29d8ad412c96e1d63a431fb1add3ce53fd1a135e150eca4c28a31a1f56c3867c'
-
 // welcome page
 router.get('/welcome', async (req,res) => {
   res.render('welcome')
@@ -72,7 +69,6 @@ router.post('/login', async (req, res) => {
 
   email = req.body.email
   
-
   const db = dbService.getDbServiceInstance();
   const message = await db.signIn(email,req.body.password);
 
@@ -85,32 +81,7 @@ router.post('/login', async (req, res) => {
     var coordinates = user.coordinates
     console.log(coordinates)
 
-    //fetch satillite api
-    //
-    var bboxArrray = [coordinates[2][1], coordinates[0][0],coordinates[0][1],coordinates[2][0]]
-    var bbox = bboxArrray.toString()
-    console.log(bbox)
-    console.log(lat)
-    console.log(lon)
-
-    var url = 'https://api.spectator.earth/imagery/?api_key='+spectatorKey+'&bbox='+bbox
-
-    console.log(url)
-    
-    axios.get(url)
-    .then(response => {
-      var imgData = response.data
-      var MostRecent = imgData['results'][0]['id']
-      var ImgUrl = imgData['results'][4]['download_url'] + 'preview.jpg/?api_key=' + spectatorKey
-
-      console.log(ImgUrl)
-
-    });
-
-
-    // Get satillite image
-
-    res.redirect('index')
+    res.render('index',{coordinates: coordinates})
 
   } else{
 
