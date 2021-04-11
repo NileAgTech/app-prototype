@@ -901,46 +901,7 @@ function showDate(e){
 	//	console.log()
 }
 
-var CLIENT_ID = '480927254718-htubqg8oi1oa7rif76e9ltts828pl4cu.apps.googleusercontent.com';
-
-// Runs a simple EE analysis and output the results to the web page.
-var runAnalysis = function() {
-  ee.initialize();
-  var imageMetadata = ee.Image(1).getInfo();
-  console.log('here')
-  console.log(imageMetadata)
-  $('.output').text(JSON.stringify(imageMetadata), null, ' ');
-};
-
-function connectToEngine() {
-  // Shows a button prompting the user to log in.
-  var onImmediateFailed = function() {
-    $('.g-sign-in').removeClass('hidden');
-    $('.output').text('(Log in to see the result.)');
-    $('.g-sign-in .button').click(function() {
-      ee.data.authenticateViaPopup(function() {
-        // If the login succeeds, hide the login button and run the analysis.
-        $('.g-sign-in').addClass('hidden');
-        runAnalysis();
-      });
-    });
-  };
-
-  // Attempt to authenticate using existing credentials.
-  ee.data.authenticate(CLIENT_ID, runAnalysis, null, null, onImmediateFailed);
-}
-
-connectToEngine()
-						  
-						  
-//polyID = createPoly(cor1, cor2, cor3, cor4, cor5, api_key, id)
-
-
-						  
-						  
-						
-						  
-						  
-						
+var CLIENT_ID = '480927254718-htubqg8oi1oa7rif76e9ltts828pl4cu.apps.googleusercontent.com;'
+		  				
 	</script>
 </body>

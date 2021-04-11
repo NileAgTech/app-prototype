@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "nile-tech",
+  "private_key_id": "3c124847ed1a8e4175cca982a7dc20846377ce06",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCtODfyZQ9Stvis\n3BMZRKG5m4Dg7fbKGN1ad71O5Ky1XRYd2WFqp5f1Ht+9ZgzVUYZa0honW0EvQLxB\n1ylxO4hReJL8bpZ7pWrCQBX+mIGDxvFveMsxLMv2pmL+XmO2viucLAXKs7v2xbbU\nctR4gHDaKQ8Swt+/23vF7fXmF8veD/MbvTjOYNY53PzFjkzDygvAtddmAQqRA7po\nVCdmrqGKDzS2UV4FzY5QbL58YWw1Yko4prg6RARY1yWfJ7zjtuKwlW4OiDVTszGM\nR0RqwxBGnA/+jooXTSAV0Iu+Mrpzh89l/YPo+VBv+2/Tlvo/YewMsblJOdBJO/MG\nUPxSN84TAgMBAAECggEAIOKdbH1XLWLjTx3w2kk3Ut981jcXNUMHMxesbv/m8f+c\nJUqRvgfXR4f2/iQTp6P0l+VvZa1jcK8fjnhku8SLmrwDW707AHplDD/SbSVS4Uux\npnIOUWWpy0fHX3dYAueTq/CHoPYCZ1Ud4rNyNvZbdm95Fxy8EdZ/ZxJILsixwZSB\nRJ710Eao/MZO6tekPgao2gsoMYo1oO2bjMTYv3xeVoXRYyrXEntmKmUI6aL9O/Zs\nBn/hoYbmzOOH7pU5S5hO+jLmyClitroRZUgBCZKCvn6FfJfw4Y8GAjdXtBFp4PT6\nwrpsqv26rh5fvhhU5uAFM4yDNeNdvP6OpLqZkac58QKBgQDn5VFOIN9rt2hII2Ye\nM13yDsCgXPnWbIj2CV0cNFIdpJ30i1dwTbp4sansdYloEoZ//dVRp7xCpdk/XOos\n9M79nVxHnF5aK5TpfvrPiAmWKM3Sbvi+fS6dCVNAtgXYx+fjc9gPeHfPjsxFH9i+\nju94IFHWhx48p+jMYQienY6dNwKBgQC/OYtY2sMGm1NWqYLwRLolSQXVyABZPLux\nhB28TbQrm/GPprZlHKNDlwqFBP55cBsfGu2LlEnw8d0V069t7Prah67SWkrh3Kwq\n2SGxtyesN7Rl6DHkQwEuIP72G8gFi+ExX5/kLSI0YhakyY0zrl7dCB29lzdxjL5G\nORzH88UkBQKBgDYhX2M/ZSe9vkfoi3PNRca1Dt3gFimpWCcmdGebBvgIbx6gUB7U\n5gw6XJHntdVnTaIe3GadIuLj19xkkf1Af/jPfLTymUuvFKmUjHNZK/OzPqg6YzIE\nApeBj79xPdgmgcikR/EEi+MVUDVqg6unrdp6oN/U1ogOIddjZyGvYZTtAoGAVeXE\neZpzJsGZEwG8Jq/Iqjz+GQTpWyyT527AaLjC6R/4x52MqyjNEeyENjKDGQvJsxRG\nhn+LI2eR918Km6drG8T9O9KBdqnI0MqOfyUV9h9jsq810iJjIlSCEw1xsUQfWS1q\nRnYbukohf85l1kRKqqEdsu99YU1mn2bCTfNrp/0CgYASduMwE+D+TK8mkJcZYT8L\nXN33XTjaL1zEiq80KHK5lSkJWGO7wR22LXpPqlxSsKI+jEf7ltyzbufzbEsUHzll\n9WdcoaNM1q6yx/Pkxetj03323ugOWI0s3iLVkcrA1DlRz6IOu54OGT6pw8+N+S8y\nWlVrlRjY/2HojMUbsL13ww==\n-----END PRIVATE KEY-----\n",
+  "client_email": "nile-auth@nile-tech.iam.gserviceaccount.com",
+  "client_id": "113715419447161027935",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nile-auth%40nile-tech.iam.gserviceaccount.com"
+}
