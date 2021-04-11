@@ -3,6 +3,8 @@ var dbService = require('../dbService');
 var router = express.Router();
 const bcrypt = require('bcryptjs');
 var axios = require('axios');
+const ee = require('@google/earthengine');
+var privateKey = require('../nile-tech-3c124847ed1a.json')
 
 /* Mongo DB options */
 var url = 'mongodb://localhost:27017/';
@@ -81,6 +83,25 @@ router.post('/login', async (req, res) => {
     var coordinates = user.coordinates
     console.log(coordinates)
 
+    ee.data.authenticateViaPrivateKey(
+      privateKey,
+      () => {
+        ee.initialize(
+            null, null,
+            () => {
+              console.log('Earth Engine client library initialized.');
+            },
+            (err) => {
+              console.log(err);
+
+            });
+      },
+      (err) => {
+        console.log(err);
+      });
+
+    
+   
     res.render('index',{coordinates: coordinates})
 
   } else{
@@ -108,6 +129,16 @@ router.post('/createmap', async (req, res) => {
 
 
 })
+
+//get earth engine
+// Define endpoint at /mapid.
+router.get('/mapid', async (req, res) => {
+
+  const srtm = ee.Image('CGIAR/SRTM90_V4');
+  console.log(srtm)
+  const slope = ee.Terrain.slope(srtm);
+  slope.getMap({min: 0, max: 60}, ({mapid}) => res.send(mapid));
+});
 
 
 

@@ -114,10 +114,6 @@ class DbService {
             console.log(error)
             return error
         }
-
-
-
-
     }
 
 
