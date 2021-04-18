@@ -136,8 +136,8 @@ router.get('/mapid', async (req, res) => {
 
   const srtm = ee.Image('CGIAR/SRTM90_V4');
   console.log(srtm)
-  const slope = ee.Terrain.slope(srtm);
-  slope.getMap({min: 0, max: 60}, ({mapid}) => res.send(mapid));
+  //const slope = ee.Terrain.hillshade(srtm);
+  srtm.getMap({min: 0, max: 60}, ({mapid}) => res.send(mapid));
 });
 
 
