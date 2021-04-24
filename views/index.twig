@@ -17,14 +17,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="/scripts/ee_api_js.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<!-- Load Maps JavaScript API. For production apps, append your own Maps API key. -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=3c124847ed1a8e4175cca982a7dc20846377ce06"></script>
-    <!--
-      Load Earth Engine JavaScript API, required to add a custom tile source to the map which
-      pulls map tiles from Earth Engine.
-    -->
-    <script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
-	
 	
 	<style>
 	
@@ -44,7 +36,13 @@
     
 	
 <body class="detect-theme" data-highlight="highlight-green-dark" data-gradient="body-default">
-	
+	<!-- Load Maps JavaScript API. For production apps, append your own Maps API key. -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA"></script>
+    <!--
+      Load Earth Engine JavaScript API, required to add a custom tile source to the map which
+      pulls map tiles from Earth Engine.
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
 <div id="preloader"><div class="spinner-border color-green-dark" role="status"></div></div>
     
 <div id="page">
@@ -478,10 +476,6 @@
     
 </div>
 
-<script
-	  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA&libraries=&v=weekly"
-	  async
-	></script>
 <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="/scripts/custom.js"></script>
 <script type="text/javascript" src="/scripts/jquery.js"></script>
@@ -799,35 +793,49 @@ lat1 = parseFloat(localStorage.getItem("lat"));
 lon1= parseFloat(localStorage.getItem("lon"))
 console.log(lat1, lon1)
 
-const token = '3c124847ed1a8e4175cca982a7dc20846377ce06'
+
+const token = 'AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA'
 const EE_MAP_PATH = 'https://earthengine.googleapis.com/map'								  
 						  
-const initialize = (image) => {
+const initialize = (mapId) => {
+
+		console.log(mapId)
         // Get a reference to the placeholder DOM element to contain the map.
         const mapContainerEl = document.getElementById("map-container");
 
         // Create an interactive map inside the placeholder DOM element.
         const embeddedMap = new google.maps.Map(mapContainerEl, {
           // Pan and zoom initial map viewport to Grand Canyon.
-          center: { lng: -112.8598, lat: 36.2841 },
-          zoom: 9,
+          center: { lat: -34.397, lng: 150.644 },
+          zoom: 8,
         });
 
-		// Create a new tile source to fetch visible tiles on demand and displays them on the map.
-        const tileSource = new ee.layers.EarthEngineTileSource({
-          image,
-		  token,
-		  formatTileUrl: (x, y, z) =>
-        	`${EE_MAP_PATH}/${image}/${z}/${x}/${y}?token=${token}`
-        });
-        const overlay = new ee.layers.ImageOverlay(tileSource);
+		var overlay = new ee.layers.ImageOverlay(
+      		new ee.layers.EarthEngineTileSource('https://earthengine.googleapis.com/map', mapId.mapid, mapId.token)
+    	)
         embeddedMap.overlayMapTypes.push(overlay);
 
+
+
+		/*
+        var eeTileSource = new ee.layers.EarthEngineTileSource(mapId);
+    	var overlay = new ee.layers.ImageOverlay(eeTileSource);
+
+    	// Show a count of the number of map tiles remaining.
+    	overlay.addTileCallback(function(event) {
+      		$('.tiles-loading').text(event.count + ' tiles remaining.');
+      		if (event.count === 0) {
+        		$('.tiles-loading').empty();
+      		}
+    	});
+		
+		embeddedMap.overlayMapTypes.push(overlay);
+*/	
 }
       // Fetch a valid mapid from the remote web service defined in server.js.
-	fetch("/mapid")
+	fetch("/mapid2")
         .then((response) => response.text())
-        .then((image) => initialize(image));
+        .then((mapId) => initialize(mapId));
 
 		  				
 	</script>

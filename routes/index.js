@@ -132,9 +132,18 @@ router.post('/createmap', async (req, res) => {
 
 //get earth engine
 // Define endpoint at /mapid.
+router.get('/mapid2', async (req, res) => {
+
+  const image = ee.Image('srtm90_v4')
+  image.getMap({min: 0, max: 60}, function(map) {
+    console.log(map);
+    res.send(map)
+  });
+
+});
+
 router.get('/mapid', async (req, res) => {
 
-  var image = ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_044034_20140318');
   var image = new ee.Image('srtm90_v4');
   image.getMap({min: 0, max: 1000}, function(map) {
     console.log(map);
