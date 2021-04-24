@@ -134,12 +134,13 @@ router.post('/createmap', async (req, res) => {
 // Define endpoint at /mapid.
 router.get('/mapid', async (req, res) => {
 
-  const srtm = ee.Image('CGIAR/SRTM90_V4');
-  console.log(srtm)
-  //const slope = ee.Terrain.hillshade(srtm);
-  srtm.getMap({min: 0, max: 60}, ({mapid}) => res.send(mapid));
+  var image = ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_044034_20140318');
+  var image = new ee.Image('srtm90_v4');
+  image.getMap({min: 0, max: 1000}, function(map) {
+    console.log(map);
+    res.send(map)
+  });
 });
-
 
 
 module.exports = router;

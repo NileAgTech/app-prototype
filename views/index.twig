@@ -17,18 +17,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="/scripts/ee_api_js.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<!-- Earth Engine API -->
-<script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
+<!-- Load Maps JavaScript API. For production apps, append your own Maps API key. -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=3c124847ed1a8e4175cca982a7dc20846377ce06"></script>
+    <!--
+      Load Earth Engine JavaScript API, required to add a custom tile source to the map which
+      pulls map tiles from Earth Engine.
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/earthengine/0.1.226/earthengine-api.min.js"></script>
 	
 	
-	<style>.d-flex div h1{display: inline;}
+	<style>
+	
+		.d-flex div h1{display: inline;}
+
 		#satalite_img{width: 100%;}
+
 		#map-container {
-        height: 400px;
-        width: 100%;
-        background-color: #eee;
-      }
-		</style>
+        	height: 400px;
+        	width: 100%;
+        	background-color: #eee;
+      	}
+
+	</style>
+
 </head>
     
 	
@@ -788,124 +799,10 @@ lat1 = parseFloat(localStorage.getItem("lat"));
 lon1= parseFloat(localStorage.getItem("lon"))
 console.log(lat1, lon1)
 
-
-// agro api satillite data
-
-//make id (use in dev)
-
-function makeid(length) {
-   var result           = '';
-   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-   var charactersLength = characters.length;
-   for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-   }
-   return result;
-}
-
-function createPoly(cor1, cor2, cor3, cor4, cor5, key, id){
-
-    var polyID;
-
-
-    json = {
-
-        "name": id,
-        "geo_json" : {
-            "type": "Feature",
-            "properties": {},
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        cor1,cor2,cor3,cor4,cor5
-                    ]
-                ]
-            }
-        }
-    }
-
-    //TODO: update ajax to return polyID
-
-
-    //add ajax function
-    new Promise((resolve, reject) => {
-            $.ajax({
-                dataType: "json",
-                contentType: "application/json",
-                url: `https://api.agromonitoring.com/agro/1.0/polygons?appid=${key}`,
-                type: "POST",
-                async: false,
-                data: JSON.stringify(json), 
-                success: function(data){
-                    polyID = data['id']
-                }
-            });
-        });
-
-    return polyID
-}
-
-
-var imageDate;
-
-function searchSatillities(polyID,key){
-
-    //get image info
-    var res
-    var start_date
-    var end_date
-
-	console.log(polyID)
-	console.log(key)
-    const day = ((60*60*24))
-    const maxDays2Search = 100
-
-    end_date = Math.round(new Date()/1000);
-    start_date = end_date - (maxDays2Search*day)
-
-	console.log(end_date)
-	console.log(start_date)
-
-    new Promise((resolve, reject) => {
-            $.ajax({
-                dataType: "json",
-                contentType: "application/json",
-                url: `https://api.agromonitoring.com/agro/1.0/image/search?start=${start_date}&end=${end_date}&polyid=${polyID}&appid=${key}`,
-                type: "GET",
-                success: function(data){
-					
-					console.log(data)
-					console.log(data.length)
-					var max_len = data.length -1
-                    mostRecent = data[max_len]
-                    url = mostRecent['image']['truecolor']
-                    $('#satalite_img').attr("src", url);
-					
-					imageDate = Math.floor(mostRecent['dt'] * 1000)
-					//console.log(mostRecent['dt'])
-					showDate(imageDate)
-	
-				
-					
-                }
-            })
-        });
-}
+const token = '3c124847ed1a8e4175cca982a7dc20846377ce06'
+const EE_MAP_PATH = 'https://earthengine.googleapis.com/map'								  
 						  
-						  
-						  
-function showDate(e){
-		
-	var d = new Date(e);
-	console.log(d)
-	var n = d.toDateString();
-	document.getElementById("satalite_date").innerHTML = n;
-		
-	//	console.log()
-}
-
-const initialize = (mapid) => {
+const initialize = (image) => {
         // Get a reference to the placeholder DOM element to contain the map.
         const mapContainerEl = document.getElementById("map-container");
 
@@ -916,18 +813,21 @@ const initialize = (mapid) => {
           zoom: 9,
         });
 
-        // Create a new tile source to fetch visible tiles on demand and displays them on the map.
+		// Create a new tile source to fetch visible tiles on demand and displays them on the map.
         const tileSource = new ee.layers.EarthEngineTileSource({
-          mapid,
+          image,
+		  token,
+		  formatTileUrl: (x, y, z) =>
+        	`${EE_MAP_PATH}/${image}/${z}/${x}/${y}?token=${token}`
         });
         const overlay = new ee.layers.ImageOverlay(tileSource);
         embeddedMap.overlayMapTypes.push(overlay);
-      };
 
+}
       // Fetch a valid mapid from the remote web service defined in server.js.
-      fetch("/mapid")
+	fetch("/mapid")
         .then((response) => response.text())
-        .then((mapid) => initialize(mapid));
+        .then((image) => initialize(image));
 
 		  				
 	</script>
