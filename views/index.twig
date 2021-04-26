@@ -795,11 +795,12 @@ console.log(lat1, lon1)
 
 
 const ee_token = 'AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA'
-const EE_MAP_PATH = 'https://earthengine.googleapis.com/map'								  
+const EE_MAP_PATH = 'https://earthengine.googleapis.com/v1alpha'								  
 						  
 const initialize = (mapId) => {
 
-		mapid = mapId.mapid
+		mapidFinal = mapId.mapid
+		console.log(mapidFinal)
         // Get a reference to the placeholder DOM element to contain the map.
         const mapContainerEl = document.getElementById("map-container");
 
@@ -811,34 +812,19 @@ const initialize = (mapId) => {
         });
 
 		const tileSource = new ee.layers.EarthEngineTileSource({
-    		mapid,
+    		mapidFinal,
     		ee_token,
     		formatTileUrl: (x, y, z) =>
-        		`${EE_MAP_PATH}/${mapid}/${z}/${x}/${y}?token=${ee_token}`
+        		`${EE_MAP_PATH}/${mapidFinal}/tiles/${z}/${x}/${y}`
   			});
-			  
+
+
+		//?token=${ee_token} 
   		const layer = new ee.layers.ImageOverlay(tileSource);
         embeddedMap.overlayMapTypes.push(layer);
-
-
-
-		/*
-        var eeTileSource = new ee.layers.EarthEngineTileSource(mapId);
-    	var overlay = new ee.layers.ImageOverlay(eeTileSource);
-
-    	// Show a count of the number of map tiles remaining.
-    	overlay.addTileCallback(function(event) {
-      		$('.tiles-loading').text(event.count + ' tiles remaining.');
-      		if (event.count === 0) {
-        		$('.tiles-loading').empty();
-      		}
-    	});
-		
-		embeddedMap.overlayMapTypes.push(overlay);
-*/	
 }
       // Fetch a valid mapid from the remote web service defined in server.js.
-	fetch("/mapid2")
+	fetch("/mapid")
         .then((response) => response.json())
         .then((mapid) => initialize(mapid));
 

@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 var axios = require('axios');
 const ee = require('@google/earthengine');
 var privateKey = require('../nile-tech-3c124847ed1a.json')
+require("ee-runner")
 
 /* Mongo DB options */
 var url = 'mongodb://localhost:27017/';
@@ -132,24 +133,27 @@ router.post('/createmap', async (req, res) => {
 
 //get earth engine
 // Define endpoint at /mapid.
-router.get('/mapid2', async (req, res) => {
-
-  const image = ee.Image('srtm90_v4')
-  image.getMap({min: 0, max: 60}, function(map) {
-    console.log(map);
-    res.send(map)
-  });
-
-});
-
 router.get('/mapid', async (req, res) => {
 
-  var image = new ee.Image('srtm90_v4');
-  image.getMap({min: 0, max: 1000}, function(map) {
+  var image = ee.ImageCollection('COPERNICUS/S2_SR')
+                .filterBounds(ee.Geometry.Point(-70.48, 43.3631))
+                .filterDate('2019-01-01', '2019-12-31')
+                .first();
+
+  
+  image.getThumbURL(function(url) {
+      console.log(url);
+      res.send(url)
+  });
+  
+
+  ndwi.getMap({min: 0.5, max: 1, palette: ['00FFFF', '0000FF']}, function(map) {
     console.log(map);
     res.send(map)
   });
+
 });
+
 
 
 module.exports = router;
