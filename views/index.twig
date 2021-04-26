@@ -72,7 +72,7 @@
 				<p class="text-center mt-n2 opacity-50 font-12">Satillite view of your farm</p>
 
 				<p class="text-center mt-n2 font-18">Image Date: <span id="satalite_date"></span></p>
-				<div id="map-container"></div>
+				<!-- <div id="map-container"></div> -->
                 <img id="satalite_img">
 				
             </div>
@@ -796,18 +796,22 @@ console.log(lat1, lon1)
 
 const ee_token = 'AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA'
 const EE_MAP_PATH = 'https://earthengine.googleapis.com/v1alpha'								  
-						  
+
+
+//add interactive map 
+
+/*						  
 const initialize = (mapId) => {
 
 		mapidFinal = mapId.mapid
 		console.log(mapidFinal)
+
         // Get a reference to the placeholder DOM element to contain the map.
         const mapContainerEl = document.getElementById("map-container");
 
         // Create an interactive map inside the placeholder DOM element.
         const embeddedMap = new google.maps.Map(mapContainerEl, {
-          // Pan and zoom initial map viewport to Grand Canyon.
-          center: { lat: -34.397, lng: 150.644 },
+          center: { lat: -70.48, lng: 43.3631 },
           zoom: 8,
         });
 
@@ -818,6 +822,7 @@ const initialize = (mapId) => {
         		`${EE_MAP_PATH}/${mapidFinal}/tiles/${z}/${x}/${y}`
   			});
 
+		console.log(tileSource)
 
 		//?token=${ee_token} 
   		const layer = new ee.layers.ImageOverlay(tileSource);
@@ -827,6 +832,43 @@ const initialize = (mapId) => {
 	fetch("/mapid")
         .then((response) => response.json())
         .then((mapid) => initialize(mapid));
+*/
+
+//get satillite image
+
+function timeConverter(timestamp){
+  var date = new Date(timestamp);
+  var newDate = date.getDate()+
+          "/"+(date.getMonth()+1)+
+          "/"+date.getFullYear()+
+          " "+date.getHours()+
+          ":"+date.getMinutes()+
+          ":"+date.getSeconds();
+
+  return newDate;
+}
+
+const initialize = (resInfo) => {
+
+		console.log(resInfo)
+
+		var url = resInfo.url
+		var date = timeConverter(resInfo.date)
+
+        // Get a reference to the placeholder DOM element to contain the map.
+        const imgContainer = document.getElementById("satalite_img");
+		imgContainer.src = url
+
+		const dateContainer = document.getElementById("satalite_date")
+		dateContainer.innerHTML = date
+}
+      // Fetch a valid mapid from the remote web service defined in server.js.
+	fetch("/satImgURL")
+        .then((response) => response.json())
+        .then((resInfo) => initialize(resInfo));
+
+
+
 
 		  				
 	</script>

@@ -138,22 +138,40 @@ router.get('/mapid', async (req, res) => {
   var image = ee.ImageCollection('COPERNICUS/S2_SR')
                 .filterBounds(ee.Geometry.Point(-70.48, 43.3631))
                 .filterDate('2019-01-01', '2019-12-31')
+                .sort('CLOUDY_PIXEL_PERCENTAGE')
                 .first();
 
-  
-  image.getThumbURL(function(url) {
-      console.log(url);
-      res.send(url)
-  });
-  
+  var url = image
+    .visualize({bands:['B5', 'B4', 'B3']})
+    .getThumbURL({dimensions:'1024x1024', format: 'jpg'});
 
-  ndwi.getMap({min: 0.5, max: 1, palette: ['00FFFF', '0000FF']}, function(map) {
+  console.log(url)
+
+  image.getMap({bands: ['B4', 'B3', 'B2'], min: 0, max: 2000}, function(map) {
     console.log(map);
     res.send(map)
   });
 
 });
 
+router.get('/satImgURL', async (req, res) => {
 
+  var image = ee.ImageCollection('COPERNICUS/S2_SR')
+    .filterBounds(ee.Geometry.Point(-70.48, 43.3631))
+    .filterDate('2021-01-01', '2021-04-20')
+    .sort('CLOUDY_PIXEL_PERCENTAGE')
+    .first();
+
+  var date = ee.Date(image.get('system:time_start')).getInfo().value
+
+  var url = image
+    .visualize({bands:['B4', 'B3', 'B2'], gamma: 1.5})
+    .getThumbURL({dimensions:'1024x1024', format: 'jpg'});
+
+  console.log(url)
+  console.log(date)
+  res.send({url,date})
+
+});
 
 module.exports = router;
