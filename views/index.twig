@@ -794,12 +794,12 @@ lon1= parseFloat(localStorage.getItem("lon"))
 console.log(lat1, lon1)
 
 
-const token = 'AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA'
+const ee_token = 'AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA'
 const EE_MAP_PATH = 'https://earthengine.googleapis.com/map'								  
 						  
 const initialize = (mapId) => {
 
-		console.log(mapId)
+		mapid = mapId.mapid
         // Get a reference to the placeholder DOM element to contain the map.
         const mapContainerEl = document.getElementById("map-container");
 
@@ -810,10 +810,15 @@ const initialize = (mapId) => {
           zoom: 8,
         });
 
-		var overlay = new ee.layers.ImageOverlay(
-      		new ee.layers.EarthEngineTileSource('https://earthengine.googleapis.com/map', mapId.mapid, mapId.token)
-    	)
-        embeddedMap.overlayMapTypes.push(overlay);
+		const tileSource = new ee.layers.EarthEngineTileSource({
+    		mapid,
+    		ee_token,
+    		formatTileUrl: (x, y, z) =>
+        		`${EE_MAP_PATH}/${mapid}/${z}/${x}/${y}?token=${ee_token}`
+  			});
+			  
+  		const layer = new ee.layers.ImageOverlay(tileSource);
+        embeddedMap.overlayMapTypes.push(layer);
 
 
 
@@ -834,8 +839,8 @@ const initialize = (mapId) => {
 }
       // Fetch a valid mapid from the remote web service defined in server.js.
 	fetch("/mapid2")
-        .then((response) => response.text())
-        .then((mapId) => initialize(mapId));
+        .then((response) => response.json())
+        .then((mapid) => initialize(mapid));
 
 		  				
 	</script>

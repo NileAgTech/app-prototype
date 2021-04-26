@@ -39,11 +39,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(function (req, res, next) {
-  res.setHeader(
-    'Content-Security-Policy',
-    "connect-src 'self' https://*.googleapis.com https://apis.google.com"
-  );
+app.all(function (req, res, next) {
+  res.setHeader('Content-Security-Policy','*');
   next();
 });
 
@@ -51,5 +48,5 @@ var httpServer = http.createServer(app);
 
 httpServer.listen(8080);
 
-//app.listen(3000);
+
 console.log('listening on port 8080');
