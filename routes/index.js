@@ -200,8 +200,8 @@ router.get('/satImgURL', async (req, res) => {
 
   var image = ee.ImageCollection('LANDSAT/LC08/C01/T1_RT')
     .filterBounds(ee.Geometry.BBox(userbbox[0],userbbox[1],userbbox[2],userbbox[3]))
-    .filterDate('2021-01-01', '2021-04-20')
-    .sort('system:time_start')
+    .filterDate('2021-01-01', '2021-04-27')
+    .sort('system:time_start', false)
     .first();
 
   var date = ee.Date(image.get('system:time_start')).getInfo().value
@@ -209,7 +209,7 @@ router.get('/satImgURL', async (req, res) => {
   var url = image
     .clip(ee.Geometry.BBox(userbbox[0],userbbox[1],userbbox[2],userbbox[3]))
     .visualize({bands:['B4', 'B3', 'B2'], gamma: 1.5})
-    .getThumbURL({dimensions:'1024x1024', format: 'jpg'});
+    .getThumbURL({dimensions:'2000x2000', format: 'jpg'});
 
   console.log(url)
   console.log(date)
