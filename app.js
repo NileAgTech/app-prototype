@@ -13,6 +13,9 @@ var http = require('http');
 var fs = require('fs');
 
 var app = express();
+users = []
+let getUserInstance = email => users.find(user => user.email === email);
+let getUserBySession = token => users.find(user => user.cookie === token);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,6 +36,7 @@ app.use('/users', usersRouter);
 app.use((req, res) => {
   res.status(404).send('file not found');
 });
+
 
 app.all('*', function (req, res, next) {
 

@@ -85,12 +85,12 @@ class DbService {
     }
 
 
-    async addMap(email, lat, long, coordinates){
+    async addMap(email, lat, long, bbox){
         try{
             var newItem = {
                 "latitude": lat,
                 "longitude": long,
-                "coordinates": coordinates
+                "bbox": bbox
             }
 
             await usersCol.updateOne({"email": email}, { $set: newItem });

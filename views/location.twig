@@ -96,7 +96,7 @@ var lat, lon;
 	  google.maps.event.addListener(map, "bounds_changed", function() {
 		 // send the new bounds back to your server
 		 
-bbox = [
+			bbox = [
 					 [map.getBounds().getSouthWest().lat(),map.getBounds().getNorthEast().lng()],
 					 [map.getBounds().getNorthEast().lat(),map.getBounds().getNorthEast().lng()],
 					 [map.getBounds().getNorthEast().lat(),map.getBounds().getSouthWest().lng()],
@@ -105,10 +105,15 @@ bbox = [
 		 
 		 console.log(bbox);
 
+			mapBbox = [map.getBounds().getSouthWest().lng(), 
+						map.getBounds().getSouthWest().lat(), 
+						map.getBounds().getNorthEast().lng(),
+						map.getBounds().getNorthEast().lat()]
+
 
 		 document.getElementById('store_btn').onclick = function(){
 
-			 data2send = [email,lat,lon,bbox]
+			 data2send = [email,lat,lon,mapBbox]
 			 new Promise((resolve, reject) => {
             	$.ajax({
                 	dataType: "json",
