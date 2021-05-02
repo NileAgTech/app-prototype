@@ -122,35 +122,51 @@ router.post('/createmap', async (req, res) => {
   lat = group[1]
   lon = group[2]
   bbox = group[3]
+  points = group[4]
 
   const db = dbService.getDbServiceInstance();
-  const message = await db.addMap(email,lat,lon,bbox);
+  const message = await db.addMap(email,lat,lon,bbox, points);
 
 
 })
 
 //get earth engine
 // Define endpoint at /mapid.
-router.get('/mapid', async (req, res) => {
+router.get('/getVideoURL', async (req, res) => {
 
-  console.log(req.user)
-  
-  var image = ee.ImageCollection('COPERNICUS/S2_SR')
-                .filterBounds(ee.Geometry.Point(-70.48, 43.3631))
-                .filterDate('2019-01-01', '2019-12-31')
-                .sort('CLOUDY_PIXEL_PERCENTAGE')
-                .first();
+  const sessionToken = req.cookies.sessionToken;
+  console.log(sessionToken)
+  const user = getUserBySession(sessionToken)
+  const db = dbService.getDbServiceInstance();
+  const userObj = await db.getUser(email);
 
-  var url = image
-    .visualize({bands:['B5', 'B4', 'B3']})
-    .getThumbURL({dimensions:'1024x1024', format: 'jpg'});
+  var latitude = userObj.latitude
+  var longitude = userObj.longitude
+  var userbbox = userObj.bbox
+  var points = userObj.points
 
-  console.log(url)
+  var aoi = ee.Geometry.Polygon(
+    [[points[0],points[1],points[2],points[3]]], null,
+    false);
 
-  image.getMap({bands: ['B4', 'B3', 'B2'], min: 0, max: 2000}, function(map) {
-    console.log(map);
-    res.send(map)
-  });
+  var tempCol = ee.ImageCollection('NOAA/GFS0P25')
+    .filterDate('2018-01-01', '2019-01-01')
+    .limit(24)
+    .select('temperature_2m_above_ground');
+
+  // Define arguments for animation function parameters.
+  var videoArgs = {
+    dimensions: 768,
+    region: aoi,
+    framesPerSecond: 7,
+    crs: 'EPSG:3857',
+    min: -40.0,
+    max: 35.0,
+    palette: ['blue', 'purple', 'cyan', 'green', 'yellow', 'red']
+};
+
+  console.log(tempCol.getVideoThumbURL(videoArgs));
+  res.send(tempCol.getVideoThumbURL(videoArgs))
 
 });
 
@@ -179,6 +195,7 @@ router.get('/satImgURL', async (req, res) => {
   var url = image
     .clip(ee.Geometry.BBox(userbbox[0],userbbox[1],userbbox[2],userbbox[3]))
     .visualize({bands:['B4', 'B3', 'B2'], gamma: 1.5})
+    .resample('bicubic')
     .getThumbURL({dimensions:'2000x2000', format: 'jpg'});
 
   console.log(url)
