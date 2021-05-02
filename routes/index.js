@@ -4,8 +4,8 @@ var dbService = require('../dbService');
 const bcrypt = require('bcryptjs');
 const ee = require('@google/earthengine');
 const { v4: uuidv4 } = require('uuid');
-var privateKey = require('../nile-tech-3c124847ed1a.json')
 const User = require('../User');
+const eeService = require('../eeService')
 
 let getUserInstance = email => users.find(user => user.email === email);
 let getUserBySession = token => users.find(user => user.cookie === token);
@@ -110,24 +110,6 @@ router.post('/login', async (req, res) => {
 
     res.cookie('sessionToken', sessionToken);
 
-    //TODO : Change this to app function
-    ee.data.authenticateViaPrivateKey(
-      privateKey,
-      () => {
-        ee.initialize(
-            null, null,
-            () => {
-              console.log('Earth Engine client library initialized.');
-            },
-            (err) => {
-              console.log(err);
-
-            });
-      },
-      (err) => {
-        console.log(err);
-      });
-
     res.redirect('index')
 
   } else{
@@ -187,12 +169,9 @@ router.get('/satImgURL', async (req, res) => {
   console.log(sessionToken)
   const user = getUserBySession(sessionToken)
 
-  console.log(user)
 
   const db = dbService.getDbServiceInstance();
   const userObj = await db.getUser(email);
-
-  console.log(userObj)
 
   var latitude = userObj.latitude
   var longitude = userObj.longitude
