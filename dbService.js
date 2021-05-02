@@ -5,10 +5,10 @@ const url = 'mongodb://localhost:27017/';
 let instance = null;
 
 var usersCol;
+var sessionsCol;
 var db;
 
 try {
-
     MongoClient
         .connect(url, { 
             useUnifiedTopology: true 
@@ -17,6 +17,7 @@ try {
             console.log('Connected to Database')
 			db = client.db('app-prototype')
 			usersCol = db.collection('users')
+            sessionsCol = db.collection('sessions')
     });
 
 } catch (error){
@@ -54,6 +55,57 @@ class DbService {
             console.log(error);
             return error;
         }
+    }
+
+    async registerSession(email, sessionToken){
+        try{
+            //check if session exists
+            var check = await sessionsCol.findOne({"email": email})
+
+            //create new session if first session
+            if (check === null){
+
+                var session = {
+                    "email": email,
+                    "token": sessionToken
+                }
+
+                await sessionsCol.insertOne(session)
+            
+
+            //otherwise, update session
+            } else {
+                var newItem = {
+                    "token": sessionToken
+                }
+
+                await sessionsCol.updateOne({"email": email}, { $set: newItem })
+            }
+            
+        } catch (error) {
+            console.log(error);
+            return
+        }
+    }
+
+    async findSession(sessionToken){
+        try{
+            //check if session exists
+            var session = await sessionsCol.findOne({"token": sessionToken})
+
+            //create new session if first session
+            if (session === null){
+                return null
+            } else {
+                return session
+            }
+            
+        } catch (error) {
+            console.log(error);
+            return
+        }
+
+
     }
 
     async signIn(email, enteredPassword){
@@ -115,9 +167,6 @@ class DbService {
             return error
         }
     }
-
-
-
 
 }
 

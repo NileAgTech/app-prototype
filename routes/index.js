@@ -7,13 +7,14 @@ const { v4: uuidv4 } = require('uuid');
 const User = require('../User');
 const eeService = require('../eeService')
 
-let getUserInstance = email => users.find(user => user.email === email);
 let getUserBySession = token => users.find(user => user.cookie === token);
 
 const requireAuth = (req, res, next) => {
   const sessionToken = req.cookies.sessionToken;
   console.log(sessionToken)
-  const user = getUserBySession(sessionToken)
+  //find session
+  const db = dbService.getDbServiceInstance();
+  var user = db.findSession(sessionToken)
   
   if (!user) {
       res.status(401).redirect('/login');
@@ -21,7 +22,6 @@ const requireAuth = (req, res, next) => {
   }
   next();
 };
-
 
 
 /* Mongo DB options */
@@ -96,17 +96,8 @@ router.post('/login', async (req, res) => {
 
   if (message === null){
 
-    const user = await db.getUser(email);
-
     const sessionToken = uuidv4();
-
-    //find user 
-    var userObject = getUserInstance(email);
-    if(!userObject){
-      users.push(new User(email, sessionToken))
-    } else{
-      userObject.updateCookie(sessionToken)
-    }
+    db.registerSession(email, sessionToken)
 
     res.cookie('sessionToken', sessionToken);
 
