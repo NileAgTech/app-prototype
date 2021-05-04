@@ -134,6 +134,23 @@ router.post('/createmap', async (req, res) => {
 // Define endpoint at /mapid.
 router.get('/getVideoURL', async (req, res) => {
 
+  var today = new Date();
+
+  var dd = ('0' + today.getDate()).slice(-2) 
+  var mm = ('0' + (today.getMonth()+1)).slice(-2)
+  var yyyy = today.getFullYear(); 
+
+  var currDateStr = yyyy + '-' + mm + '-' + dd
+
+  var yearAgo = new Date();
+  yearAgo.setFullYear( yearAgo.getFullYear() - 1 );
+
+  dd = ('0' + yearAgo.getDate()).slice(-2)  
+  mm = ('0' + (yearAgo.getMonth()+1)).slice(-2)
+  yyyy = yearAgo.getFullYear(); 
+
+  var currDateMinusYear = yyyy + '-' + mm + '-' + dd
+
   const sessionToken = req.cookies.sessionToken;
   console.log(sessionToken)
   const user = getUserBySession(sessionToken)
@@ -147,10 +164,31 @@ router.get('/getVideoURL', async (req, res) => {
     [[points[0],points[1],points[2],points[3]]], null,
     false);
 
+  var cloudMask = function(img) {
+      var scored = ee.Algorithms.Landsat.simpleCloudScore(img);
+      var mask = scored.select(['cloud']).lte(20);
+      return img.updateMask(mask);
+  };
+
   var imgCol = ee.ImageCollection('LANDSAT/LC08/C01/T1_RT')
     .filterBounds(ee.Geometry.BBox(userbbox[0],userbbox[1],userbbox[2],userbbox[3]))
-    .filterDate('2018-01-01', '2020-01-01')
+    .filterDate(currDateMinusYear, currDateStr)
+    .sort('system:time_start', true)
     .limit(40)
+
+  var imgMask = imgCol.map(cloudMask)
+
+  var lsCompList = imgMask.map(function(img) {
+      // Get the list of images belonging to the given year.
+      return img
+        // Apply cloud mask.
+        .visualize({bands:['B4', 'B3', 'B2'], gamma: 1.5})
+        .resample('bicubic')
+        // Set composite year as an image property.
+    });
+
+
+  var lsCompCol = ee.ImageCollection(lsCompList);
 
   // Define arguments for animation function parameters.
   var gifParams = {
@@ -160,14 +198,14 @@ router.get('/getVideoURL', async (req, res) => {
     'framesPerSecond': 10
   };
 
-  console.log(imgCol.getVideoThumbURL(gifParams));
-  var url = imgCol.getVideoThumbURL(gifParams)
+  console.log(lsCompCol.getVideoThumbURL(gifParams));
+  var url = lsCompCol.getVideoThumbURL(gifParams)
   res.send({url})
 
 });
 
-//get earth engine
-// Define endpoint at /mapid.
+//NDVI MAP 
+//NOTE: Does not work up close
 router.get('/getVideoURL2', async (req, res) => {
 
   const sessionToken = req.cookies.sessionToken;
