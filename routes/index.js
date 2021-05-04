@@ -139,34 +139,81 @@ router.get('/getVideoURL', async (req, res) => {
   const user = getUserBySession(sessionToken)
   const db = dbService.getDbServiceInstance();
   const userObj = await db.getUser(email);
-
-  var latitude = userObj.latitude
-  var longitude = userObj.longitude
   var userbbox = userObj.bbox
+
   var points = userObj.points
 
   var aoi = ee.Geometry.Polygon(
     [[points[0],points[1],points[2],points[3]]], null,
     false);
 
-  var tempCol = ee.ImageCollection('NOAA/GFS0P25')
-    .filterDate('2018-01-01', '2019-01-01')
-    .limit(24)
-    .select('temperature_2m_above_ground');
+  var imgCol = ee.ImageCollection('LANDSAT/LC08/C01/T1_RT')
+    .filterBounds(ee.Geometry.BBox(userbbox[0],userbbox[1],userbbox[2],userbbox[3]))
+    .filterDate('2018-01-01', '2020-01-01')
+    .limit(40)
 
   // Define arguments for animation function parameters.
-  var videoArgs = {
-    dimensions: 768,
-    region: aoi,
-    framesPerSecond: 7,
-    crs: 'EPSG:3857',
-    min: -40.0,
-    max: 35.0,
-    palette: ['blue', 'purple', 'cyan', 'green', 'yellow', 'red']
-};
+  var gifParams = {
+    'region': aoi,
+    'dimensions': 800,
+    'crs': 'EPSG:3857',
+    'framesPerSecond': 10
+  };
 
-  console.log(tempCol.getVideoThumbURL(videoArgs));
-  res.send(tempCol.getVideoThumbURL(videoArgs))
+  console.log(imgCol.getVideoThumbURL(gifParams));
+  var url = imgCol.getVideoThumbURL(gifParams)
+  res.send({url})
+
+});
+
+//get earth engine
+// Define endpoint at /mapid.
+router.get('/getVideoURL2', async (req, res) => {
+
+  const sessionToken = req.cookies.sessionToken;
+  console.log(sessionToken)
+  const user = getUserBySession(sessionToken)
+  const db = dbService.getDbServiceInstance();
+  const userObj = await db.getUser(email);
+
+  var points = userObj.points
+
+  var aoi = ee.Geometry.Polygon(
+    [[points[0],points[1],points[2],points[3]]], null,
+    false);
+
+  var imgCol = ee.ImageCollection('MODIS/006/MOD13A2')
+    .filterDate('2018-01-01', '2020-01-01')
+    .limit(40)
+    .select('NDVI')
+
+  var visParams = {
+      min: 0.0,
+      max: 9000.0,
+      palette: [
+        'FFFFFF', 'CE7E45', 'DF923D', 'F1B555', 'FCD163', '99B718', '74A901',
+        '66A000', '529400', '3E8601', '207401', '056201', '004C00', '023B01',
+        '012E01', '011D01', '011301'
+      ],
+  };
+
+  var visFun = function(img) {
+    return img.visualize(visParams).copyProperties(img, img.propertyNames());
+  };
+
+  var s2colVis = imgCol.map(visFun);
+
+  // Define arguments for animation function parameters.
+  var gifParams = {
+    'region': aoi,
+    'dimensions': 800,
+    'crs': 'EPSG:3857',
+    'framesPerSecond': 10
+  };
+
+  console.log(s2colVis.getVideoThumbURL(gifParams));
+  var url = s2colVis.getVideoThumbURL(gifParams)
+  res.send({url})
 
 });
 

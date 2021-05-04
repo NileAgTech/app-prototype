@@ -65,7 +65,18 @@
 				</div>
 				<h1 class="text-center font-24">Growth</h1>
 				<p class="text-center mt-n2 opacity-50 font-12">Timelapse of growth.</p>
-				<a hidden id='refresh1'  href="#" class="mb-3 btn btn-full btn-m rounded-sm bg-green-dark shadow-xl text-uppercase font-900 mt-4">refresh</a>
+				<img id="animation_img">
+            </div>
+        </div>
+
+		<div class="card card-style">
+            <div class="content mb-0">
+				<div class="mt-n2">
+					<div class="divider-icon divider-margins bg-gray-dark mx-5 mt-5"><i class="fas fa-clock font-33 mt-n3 color-green-dark bg-theme"></i></div>
+				</div>
+				<h1 class="text-center font-24">Growth</h1>
+				<p class="text-center mt-n2 opacity-50 font-12">Timelapse of growth.</p>
+				<img id="animation_img2">
             </div>
         </div>
 		
@@ -474,7 +485,6 @@
 
 <script>
 	var bbox
-	document.getElementById('refresh1').onclick = function(){myScript};
 
 	function myScript() {
 	console.log('aaa')
@@ -559,13 +569,6 @@ var lat, lon;
 	  
 	  
 	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
 	  getWeather()
 	  
 	  satalites()
@@ -600,19 +603,6 @@ function error() {
   alert('Sorry, no position available.');
 }
 
-const options = {
-  enableHighAccuracy: true,
-  maximumAge: 30000,
-  timeout: 27000
-};
-
-const watchID = navigator.geolocation.watchPosition(success, error, options);
-
-
-
-
-
-
 
 	  function getWeather(){
 		  
@@ -623,7 +613,6 @@ const watchID = navigator.geolocation.watchPosition(success, error, options);
 	//	navigator.geolocation.getCurrentPosition(function(position) {
 		  var url = getWeatherAPIURL(lat, lon);
 		  console.log(url);
-		  
 		  
 		  // current weather
 		  $.getJSON(url, function(data){
@@ -642,8 +631,6 @@ const watchID = navigator.geolocation.watchPosition(success, error, options);
 			//console.log(data)
 			console.log(e.main.aqi);
 			
-			
-			
 			$('#CO').text(e.components.co)
 			$('#NH3').text(e.components.nh3)
 			$('#NO').text(e.components.no)
@@ -661,17 +648,6 @@ const watchID = navigator.geolocation.watchPosition(success, error, options);
 			console.log(e.components.pm2_5); // PM2.5 (Fine particles matter), μg/m3
 			console.log(e.components.pm10); // PM10 (Coarse particulate matter), μg/m3
 			console.log(e.components.so2); // NH3 (Ammonia), μg/m3
-	
-
-			
-			/*co: 293.73
-			 nh3: 4.24
-	no: 0
-	no2: 17.31
-	o3: 76.53
-	pm2_5: 4.39
-	pm10: 7.76
-	so2: 0.7**/
 		  });
 		  
 		  
@@ -681,14 +657,6 @@ const watchID = navigator.geolocation.watchPosition(success, error, options);
 			//console.log(data.weather[0].main);
 			console.log(data);
 		  });
-		//  https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-		  
-		  
-	//	});
-	//  } else {
-		/* geolocaiton IS NOT available */
-	//	console.log("ERROR: geolocaiton IS NOT available");
-	//  }
 	}
 
 	function getWeatherAPIURL(lat, lon) {
@@ -697,133 +665,9 @@ const watchID = navigator.geolocation.watchPosition(success, error, options);
 	}
 
 
-//https://maps.openweathermap.org/maps/2.0/weather/TA2/20/'+lat+'/'+lon+'?date=1527811200&opacity=0.9&fill_bound=true&palette=0:FF0000;10:00FF00;20:0000FF&appid=2cf8e43f22320845ed1cd549555dc43d
-
-	//getWeatherData();
-	
-	
-		  /*
-		  var proxy = 'https://cors-anywhere.herokuapp.com/';
-
-	  var Ip = 'https://ipinfo.io/json';
-
-	//	 $.getJSON(Ip, function(data) {
-		  var city = data.city;
-		  var region = data.region;
-		  var country = data.country;
-
-		  var KEY = 'caf571f3ca8482a440838085017a419b';
-
-		  var URL ='https://api.openweathermap.org/data/2.5/weather?' + lat + '&lon=' + lon +'&appid=' + KEY;
-	//	  api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-
-		  $.getJSON(proxy + URL, function(data) {
-			  console.log(data)
-			  /*
-			var type = data.weather[0].main;  //array 0 index
-			var id = data.weather[0].id; //array 0 index
-			var city = data.name;
-
-			var tempCel = Math.round(data.main.temp - 273.15);
-			var tempC = tempCel + '°C';
-			var weather = data.weather[0].description;
-			var tempF = Math.round(tempCel * (9 / 5) + 32) + '°F';
-			var icon = data.weather[0].icon;
-			var tempBool = true;
-
-			//Output data to display on the page
-			$('#city').text(city);
-			$('#state').text(region);
-		   $('#temp').text(tempF); //Show Fahrenheit by Default
-		   var weatherIcon = 'https://openweathermap.org/img/w/' + icon + '.png';
-			$('#wIcon').html('<img src=' + weatherIcon + '>');
-
-
-	   //Then toggle to switch between F and C temperature.
-	   $('#btnToggle').on('click', function() {
-			var temp = $('#temp');
-			if (tempBool) {
-				temp.html(tempC);
-				tempBool = false
-				} else {
-				temp.html(tempF);
-				tempBool = true;
-			 }
-		  }); //End of toggle function
-
-		*///	});
-		 //});
-	//  }
-	  
-	  
-	  
-	  
-	  function satalites(){
-	  
-	  /*
-	  fetch(url).then(function(response) {
-		  
-		//  console.log(
-		return response.json();
-	  }).then(function(data) {
-		console.log(data);
-	  });
-*/
-}
-
-
-
-// lat lon
-
-
-
-var lat1, lon1;
-
-
-lat1 = parseFloat(localStorage.getItem("lat"));
-lon1= parseFloat(localStorage.getItem("lon"))
-console.log(lat1, lon1)
-
 
 const ee_token = 'AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA'
 const EE_MAP_PATH = 'https://earthengine.googleapis.com/v1alpha'								  
-
-
-//add interactive map 
-
-/*						  
-const initialize = (mapId) => {
-
-		mapidFinal = mapId.mapid
-		console.log(mapidFinal)
-
-        // Get a reference to the placeholder DOM element to contain the map.
-        const mapContainerEl = document.getElementById("map-container");
-
-        // Create an interactive map inside the placeholder DOM element.
-        const embeddedMap = new google.maps.Map(mapContainerEl, {
-          center: { lat: -70.48, lng: 43.3631 },
-          zoom: 8,
-        });
-
-		const tileSource = new ee.layers.EarthEngineTileSource({
-    		mapidFinal,
-    		ee_token,
-    		formatTileUrl: (x, y, z) =>
-        		`${EE_MAP_PATH}/${mapidFinal}/tiles/${z}/${x}/${y}`
-  			});
-
-		console.log(tileSource)
-
-		//?token=${ee_token} 
-  		const layer = new ee.layers.ImageOverlay(tileSource);
-        embeddedMap.overlayMapTypes.push(layer);
-}
-      // Fetch a valid mapid from the remote web service defined in server.js.
-	fetch("/mapid")
-        .then((response) => response.json())
-        .then((mapid) => initialize(mapid));
-*/
 
 //get satillite image
 
@@ -839,7 +683,7 @@ function timeConverter(timestamp){
   return newDate;
 }
 
-const initialize = (resInfo) => {
+const initialize_image = (resInfo) => {
 
 		console.log(resInfo)
 
@@ -853,16 +697,37 @@ const initialize = (resInfo) => {
 		const dateContainer = document.getElementById("satalite_date")
 		dateContainer.innerHTML = date
 }
+
+const initialize_animation = (resInfo) => {
+
+		var url = resInfo.url
+
+        // Get a reference to the placeholder DOM element to contain the map.
+        const imgContainer = document.getElementById("animation_img");
+		imgContainer.src = url
+
+}
+
+const initialize_animation2 = (resInfo) => {
+
+		var url = resInfo.url
+
+        // Get a reference to the placeholder DOM element to contain the map.
+        const imgContainer = document.getElementById("animation_img2");
+		imgContainer.src = url
+
+}
+
+
+
       // Fetch a valid mapid from the remote web service defined in server.js.
 	fetch("/satImgURL")
         .then((response) => response.json())
-        .then((resInfo) => initialize(resInfo));
+        .then((resInfo) => initialize_image(resInfo));
 
 	fetch("/getVideoURL")
 		.then((response) => response.json())
+		.then((resInfo) => initialize_animation(resInfo));
 
-
-
-		  				
 	</script>
 </body>
