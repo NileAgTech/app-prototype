@@ -7,6 +7,8 @@ const { v4: uuidv4 } = require('uuid');
 const User = require('../User');
 const eeService = require('../eeService')
 
+var token = 
+
 let getUserBySession = token => users.find(user => user.cookie === token);
 
 const requireAuth = (req, res, next) => {
@@ -20,6 +22,7 @@ const requireAuth = (req, res, next) => {
       res.status(401).redirect('/login');
       return;
   }
+
   next();
 };
 
@@ -288,5 +291,12 @@ router.get('/satImgURL', async (req, res) => {
   res.send({url,date})
 
 });
+
+
+router.get('/airPollutionData', async (req, res) => {
+
+
+
+})
 
 module.exports = router;
