@@ -323,6 +323,35 @@ router.get('/airPollutionData', async (req, res) => {
 
 })
 
+router.get('/weatherData', async (req, res) => {
+
+  const sessionToken = req.cookies.sessionToken;
+  console.log(sessionToken)
+  const user = getUserBySession(sessionToken)
+  const db = dbService.getDbServiceInstance();
+  const userObj = await db.getUser(email);
+
+  var latitude = userObj.latitude
+  var longitude = userObj.longitude
+
+  axios({
+    "method":"GET",
+    "url":'https://api.openweathermap.org/data/2.5/onecall?lat='+latitude+'&lon='+longitude+'&appid='+OpenWeatherToken,
+    "headers":{
+    "content-type":"application/json",
+    }
+    })
+    .then((response)=>{
+      console.log(response)
+      res.send(response.data.list)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+
+
+})
+
 
 //TODO: Create method to fetch user object
 module.exports = router;

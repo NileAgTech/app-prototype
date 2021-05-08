@@ -486,7 +486,21 @@
 
 
 <script>
+
+var icons = {
 	
+	
+	'shower rain':'fa-cloud-showers',
+	'rain':'fa-cloud-rain',
+	'thunderstorm':'fa-thunderstorm',
+	'snow':'fa-cloud-snow',
+	'mist':'fa-sun',
+	'clear sky':'fa-sun',
+	'few clouds':'fa-clouds-sun',
+	'scattered clouds':'fa-clouds-sun',
+	'broken clouds':'fa-clouds-sun',
+	'overcast clouds':'fa-clouds'
+}
 
 //get satillite image
 
@@ -507,7 +521,6 @@ function timeConverter(timestamp){
 
 const initialize_pollution = (resInfo) => {
 
-
 	var e = resInfo[0]
 
 	$('#CO').text(e.components.co)
@@ -518,9 +531,11 @@ const initialize_pollution = (resInfo) => {
 	$('#PM25').text(e.components.pm2_5)
 	$('#PM10').text(e.components.pm10)
 	$('#SO2').text(e.components.so2)
+}
 
+const initialize_weather = (resInfo) => {
 
-
+	console.log(resInfo)
 
 }
 
@@ -575,6 +590,11 @@ window.onload = function(){
 		.then((response) => response.json())
 		.then((resInfo) => initialize_pollution(resInfo));
 
+	/*
+	fetch("/weatherData")
+		.then(response) => response.json()
+		.then((resInto) => initialize_weather(resInfo));
+	*/
 }
 
 
