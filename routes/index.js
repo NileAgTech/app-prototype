@@ -4,10 +4,12 @@ var dbService = require('../dbService');
 const bcrypt = require('bcryptjs');
 const ee = require('@google/earthengine');
 const { v4: uuidv4 } = require('uuid');
+const axios = require("axios");
 const User = require('../User');
 const eeService = require('../eeService')
 
-var token = 
+//tokens
+var OpenWeatherToken = '2cf8e43f22320845ed1cd549555dc43d'
 
 let getUserBySession = token => users.find(user => user.cookie === token);
 
@@ -295,8 +297,32 @@ router.get('/satImgURL', async (req, res) => {
 
 router.get('/airPollutionData', async (req, res) => {
 
+  const sessionToken = req.cookies.sessionToken;
+  console.log(sessionToken)
+  const user = getUserBySession(sessionToken)
+  const db = dbService.getDbServiceInstance();
+  const userObj = await db.getUser(email);
+
+  var latitude = userObj.latitude
+  var longitude = userObj.longitude
+
+  axios({
+    "method":"GET",
+    "url":'https://api.openweathermap.org/data/2.5/air_pollution?lat='+latitude+'&lon='+longitude+'&appid='+OpenWeatherToken,
+    "headers":{
+    "content-type":"application/json",
+    }
+    })
+    .then((response)=>{
+      res.send(response.data.list)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
 
 
 })
 
+
+//TODO: Create method to fetch user object
 module.exports = router;

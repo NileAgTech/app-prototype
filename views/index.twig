@@ -487,64 +487,6 @@
 
 <script>
 	
-	  //getWeather()
-
-
-	  function getWeather(){
-		  
-		  console.log('get weather')
-	
-	  //We use geolocation API in order to get the current lat and lon.
-	  //if ("geolocation" in navigator) {
-	//	navigator.geolocation.getCurrentPosition(function(position) {
-		  var url = getWeatherAPIURL(lat, lon);
-		  console.log(url);
-		  		  
-		  // polition data
-		  var appid = '2cf8e43f22320845ed1cd549555dc43d';
-		  $.getJSON('https://api.openweathermap.org/data/2.5/air_pollution?lat='+lat+'&lon='+lon+'&appid='+appid, function(data){
-			//console.log(data.weather[0].main);
-
-			
-			var e = data.list[0]
-			//console.log(data)
-			console.log(e.main.aqi);
-			
-			$('#CO').text(e.components.co)
-			$('#NH3').text(e.components.nh3)
-			$('#NO').text(e.components.no)
-			$('#NO2').text(e.components.no2)
-			$('#O3').text(e.components.o3)
-			$('#PM25').text(e.components.pm2_5)
-			$('#PM10').text(e.components.pm10)
-			$('#SO2').text(e.components.so2)
-
-			console.log(e.components.co); // CO (Carbon monoxide), μg/m3
-			console.log(e.components.nh3); // NO (Nitrogen monoxide), μg/m3
-			console.log(e.components.no); // NO2 (Nitrogen dioxide), μg/m3
-			console.log(e.components.no2); // O3 (Ozone), μg/m3
-			console.log(e.components.o3); // SO2 (Sulphur dioxide), μg/m3
-			console.log(e.components.pm2_5); // PM2.5 (Fine particles matter), μg/m3
-			console.log(e.components.pm10); // PM10 (Coarse particulate matter), μg/m3
-			console.log(e.components.so2); // NH3 (Ammonia), μg/m3
-		  });
-		  
-		  
-		  
-		  // one call API
-		  $.getJSON('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&appid='+appid, function(data){
-			//console.log(data.weather[0].main);
-			console.log(data);
-		  });
-	}
-
-	function getWeatherAPIURL(lat, lon) {
-	  var appid = '2cf8e43f22320845ed1cd549555dc43d';
-	  return 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid='+appid;
-	}
-
-
-								  
 
 //get satillite image
 
@@ -561,6 +503,25 @@ function timeConverter(timestamp){
           ":"+date.getSeconds();
 
   return newDate;
+}
+
+const initialize_pollution = (resInfo) => {
+
+
+	var e = resInfo[0]
+
+	$('#CO').text(e.components.co)
+	$('#NH3').text(e.components.nh3)
+	$('#NO').text(e.components.no)
+	$('#NO2').text(e.components.no2)
+	$('#O3').text(e.components.o3)
+	$('#PM25').text(e.components.pm2_5)
+	$('#PM10').text(e.components.pm10)
+	$('#SO2').text(e.components.so2)
+
+
+
+
 }
 
 const initialize_image = (resInfo) => {
@@ -598,7 +559,10 @@ const initialize_animation2 = (resInfo) => {
 
 }
 
-      // Fetch a valid mapid from the remote web service defined in server.js.
+
+
+window.onload = function(){
+
 	fetch("/satImgURL")
         .then((response) => response.json())
         .then((resInfo) => initialize_image(resInfo));
@@ -607,9 +571,12 @@ const initialize_animation2 = (resInfo) => {
 		.then((response) => response.json())
 		.then((resInfo) => initialize_animation(resInfo));
 
-	fetch(")
+	fetch("/airPollutionData")
+		.then((response) => response.json())
+		.then((resInfo) => initialize_pollution(resInfo));
 
-	
+}
+
 
 	</script>
 </body>
