@@ -10,6 +10,7 @@ const eeService = require('../eeService')
 
 //tokens
 var OpenWeatherToken = '2cf8e43f22320845ed1cd549555dc43d'
+var MeteoStatToken = 'svn4qmVNA3Zo4Cd9DqmYtkxcUYcI0JZa'
 
 let getUserBySession = token => users.find(user => user.cookie === token);
 
@@ -179,7 +180,7 @@ router.get('/getVideoURL', async (req, res) => {
     .filterBounds(ee.Geometry.BBox(userbbox[0],userbbox[1],userbbox[2],userbbox[3]))
     .filterDate(currDateMinusYear, currDateStr)
     .sort('system:time_start', true)
-    .limit(40)
+    .limit(50)
 
   var imgMask = imgCol.map(cloudMask)
 
@@ -347,6 +348,100 @@ router.get('/weatherData', async (req, res) => {
       console.log(error)
     })
 
+
+})
+
+router.get('/historicalWeather', async (req, res) => {
+
+
+  //get session token
+  const sessionToken = req.cookies.sessionToken;
+  console.log(sessionToken)
+  const db = dbService.getDbServiceInstance();
+  const userObj = await db.getUser(email);
+
+  var latitude = userObj.latitude
+  var longitude = userObj.longitude
+
+  //new dates
+  var today = new Date();
+
+  var dd = ('0' + today.getDate()).slice(-2) 
+  var mm = ('0' + (today.getMonth()+1)).slice(-2)
+  var yyyy = today.getFullYear(); 
+
+  var currDateStr = yyyy + '-' + mm + '-' + dd
+
+  var yearAgo = new Date();
+  yearAgo.setFullYear( yearAgo.getFullYear() - 1 );
+
+  dd = ('0' + yearAgo.getDate()).slice(-2)  
+  mm = ('0' + (yearAgo.getMonth()+1)).slice(-2)
+  yyyy = yearAgo.getFullYear(); 
+
+  var currDateMinusYear = yyyy + '-' + mm + '-' + dd
+
+
+
+
+
+
+  axios({
+    "method":"GET",
+    "url":'https://api.meteostat.net/v2/point/daily?lat=' + latitude + '&lon=' + longitude + '&start=' + 2019-06-01 + '&end=' + 2019-06-30,
+    "headers":{
+    "content-type":"application/json",
+    }
+    })
+    .then((response)=>{
+      console.log(response)
+      res.send(response.data)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+
+
+
+})
+
+router.get('/NDVI', async (req, res) => {  
+
+  /*
+  Define a region of interest as a point and buffer 1km around the area
+roi = ee.Geometry.Point([-124.0769, 40.1035]).buffer(1000)
+
+#Get Image from Landsat
+
+image = ee.Image(ee.ImageCollection('LANDSAT/LC08/C01/T1_RT')\
+                     .filterDate('2014-01-01', '2014-01-01')\
+                     .filterBounds(roi))
+
+#Function from https://gis.stackexchange.com/q/360278
+
+def meanNDVICollection (img,aoi):
+  nir = img.select('B5')
+  red = img.select('B4')
+  ndviImage = nir.subtract(red).divide(nir.add(red)).rename('NDVI')
+
+  # Compute the mean of NDVI over the 'region'
+  ndviValue = ndviImage.reduceRegion(**{
+    'geometry': aoi.getInfo(),
+    'reducer': ee.Reducer.mean(),
+  }).get('NDVI');  # result of reduceRegion is always a dictionary, so get the element we want
+
+  newFeature = ee.Feature(None, {
+      # Adding computed NDVI value
+      'NDVI': ndviValue
+  }).copyProperties(img, [
+      # Picking properties from original image
+      'system:time_start'
+  ])
+
+  return newFeature
+  print(feature.get('NDVI').getInfo())
+
+  */
 
 })
 

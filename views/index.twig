@@ -56,7 +56,9 @@
 				<h1 class="text-center font-24">Your Farm</h1>
 				<p class="text-center mt-n2 opacity-50 font-12">Most recent satillite view of your farm</p>
 				<p class="text-center mt-n2 font-18">Image Date: <span id="satalite_date"></span></p>
-                <img id="satalite_img">
+				<div class="polaroid">
+                	<img id="satalite_img">
+				</div>
 				
             </div>
         </div>
@@ -96,7 +98,9 @@
 				</div>
 				<h1 class="text-center font-24">Growth</h1>
 				<p class="text-center mt-n2 opacity-50 font-12">Timelapse of growth.</p>
-				<img id="animation_img">
+				<div class="polaroid">
+					<img id="animation_img">
+				</div>
             </div>
         </div>
 
@@ -307,22 +311,8 @@
         
 		</div>
 		
-		<div class=" card card-style">
-			
-			<div style="height:100vw; width:100%"id="map"></div>
-
-			
-	
-	</div>
-	
-	
 	
         <div class="footer card card-style">
-			
-			
-			
-			
-			
 					
 			<img  class="show-on-theme-light preload-img" src="images/logo/nile.png" width="15%" style="min-width:100px;margin: 0 auto; left: 0;right: 0;opacity:0.9">
 				
@@ -587,7 +577,7 @@ const initialize_weather = (resInfo) => {
 	$('.iconCol').append('<i class="fad '+icons[desc]+' fa-4x"></i>')
 	$('.iconCol').append('<p> '+  desc + '</p>')
 
-	$('.tempCol').append('<h1>' + temp + ' ° </h1>')
+	$('.tempCol').append('<h1>' + temp + ' °F </h1>')
 
 	$('.sunriseCol').append('<p><b>Sunrise</b></p>')
 	$('.sunriseCol').append('<p>' + formattedSunrise + '</p>')
@@ -595,7 +585,7 @@ const initialize_weather = (resInfo) => {
 	$('.sunsetCol').append('<p><b>Sunset</b></p>')
 	$('.sunsetCol').append('<p>' + formattedSunset + '</p>')
 
-	$('.sunlightCol').append('<p><b>Elapsed Sunlight</b></p>')
+	$('.sunlightCol').append('<p><b>Sunlight</b></p>')
 	$('.sunlightCol').append('<p>' + total_sun + ' hours</p>')
 }
 
@@ -612,6 +602,12 @@ const initialize_image = (resInfo) => {
 
 		const dateContainer = document.getElementById("satalite_date")
 		dateContainer.innerHTML = date
+}
+
+const historical_weather = (resInfo) => {
+
+		console.log(resInfo)
+
 }
 
 const initialize_animation = (resInfo) => {
@@ -654,6 +650,11 @@ window.onload = function(){
 	fetch("/weatherData")
 		.then((response) => response.json())
 		.then((resInfo) => initialize_weather(resInfo));
+
+	fetch("/historicalWeather")
+		.then((response) => response.json())
+		.then((resInfo) => historical_weather(resInfo));
+
 
 }
 
