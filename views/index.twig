@@ -70,10 +70,17 @@
 				<p class="text-center mt-n2 opacity-50 font-12">Current weather conditions of your farm</p>
 
 				<div class="container">
-  					<div class="row">
-    					<div class="col-4 iconCol"></div>
-    					<div class="col-4"></div>
-    					<div class="col-4"></div>
+  					<div class="row justify-content-around">
+    					<div class="col-2 iconCol"></div>
+    					<div class="col-2 tempCol"></div>
+  					</div>
+				</div>
+				<hr>
+				<div class="container">
+  					<div class="row justify-content-around">
+    					<div class="col-3 sunriseCol"></div>
+    					<div class="col-3 sunsetCol"></div>
+						<div class="col-3 sunlightCol"></div>
   					</div>
 				</div>
 
@@ -85,7 +92,7 @@
             <div class="content mb-0">
 				<div class="mt-n2">
 					<div class="divider-icon divider-margins bg-gray-dark mx-5 mt-5"><i class="fas fa-clock font-33 mt-n3 color-green-dark bg-theme"></i></div>
-					<div class="curr_desc"
+					<div class="curr_desc"></div>
 				</div>
 				<h1 class="text-center font-24">Growth</h1>
 				<p class="text-center mt-n2 opacity-50 font-12">Timelapse of growth.</p>
@@ -174,7 +181,6 @@
 				<div class="d-flex mb-3">
 					<div class="align-self-center w-100">
 						<h1 class="mb-n2 font-16">Ammonia</h1> (<span>NH<sup>3</sup></span>)
-						<p class="font-11 opacity-50">Crispy and Delicious Buffalo Wings.</p>
 					</div>
 					<div class="align-self-center ms-auto">
 						<h2 id="NH3" class="font-24 mb-0"></h2>
@@ -564,9 +570,9 @@ const initialize_weather = (resInfo) => {
 	console.log(resInfo)
 	var desc = resInfo.current.weather[0].description
 	var icn = resInfo.current.weather[0].icon
-	var temp = Math.floor(toFahrenheit(resInfo.current.weather[0].temp))
-	var sunrise = new Date(resInfo.current.weather[0].sunrise * 1000)
-	var sunset = new Date(resInfo.current.weather[0].sunset * 1000)
+	var temp = Math.floor(toFahrenheit(resInfo.current.temp))
+	var sunrise = new Date(resInfo.current.sunrise * 1000)
+	var sunset = new Date(resInfo.current.sunset * 1000)
 
 	var sunrisehours = sunrise.getHours();
 	var sunriseminutes = "0" + sunrise.getMinutes();
@@ -576,8 +582,21 @@ const initialize_weather = (resInfo) => {
 	var sunsetminutes = "0" + sunset.getMinutes();
 	var formattedSunset = sunsethours + ':' + sunsetminutes.substr(-2)
 
-	$('.iconCol').append('<i class="fad '+icons[desc]+' fa-4x"></i>')
+	var total_sun = Math.abs(sunrise - sunset) / 36e5;
 
+	$('.iconCol').append('<i class="fad '+icons[desc]+' fa-4x"></i>')
+	$('.iconCol').append('<p> '+  desc + '</p>')
+
+	$('.tempCol').append('<h1>' + temp + ' ° </h1>')
+
+	$('.sunriseCol').append('<p><b>Sunrise</b></p>')
+	$('.sunriseCol').append('<p>' + formattedSunrise + '</p>')
+
+	$('.sunsetCol').append('<p><b>Sunset</b></p>')
+	$('.sunsetCol').append('<p>' + formattedSunset + '</p>')
+
+	$('.sunlightCol').append('<p><b>Elapsed Sunlight</b></p>')
+	$('.sunlightCol').append('<p>' + total_sun + ' hours</p>')
 }
 
 const initialize_image = (resInfo) => {

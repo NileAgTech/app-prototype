@@ -299,7 +299,6 @@ router.get('/airPollutionData', async (req, res) => {
 
   const sessionToken = req.cookies.sessionToken;
   console.log(sessionToken)
-  const user = getUserBySession(sessionToken)
   const db = dbService.getDbServiceInstance();
   const userObj = await db.getUser(email);
 
@@ -327,7 +326,6 @@ router.get('/weatherData', async (req, res) => {
 
   const sessionToken = req.cookies.sessionToken;
   console.log(sessionToken)
-  const user = getUserBySession(sessionToken)
   const db = dbService.getDbServiceInstance();
   const userObj = await db.getUser(email);
 
@@ -343,7 +341,7 @@ router.get('/weatherData', async (req, res) => {
     })
     .then((response)=>{
       console.log(response)
-      res.send(response.data.list)
+      res.send(response.data)
     })
     .catch((error)=>{
       console.log(error)
