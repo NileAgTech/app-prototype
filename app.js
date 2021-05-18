@@ -1,3 +1,4 @@
+require('dotenv').config({ path: './.env' })
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -64,9 +65,11 @@ app.all('*', function (req, res, next) {
   }
 });
 
-var httpServer = http.createServer(app);
+const httpServer = http.createServer(app);
 
-httpServer.listen(3000);
+const port = process.env.PORT | 5000
+
+httpServer.listen(port);
 
 
-console.log('listening on port 8080');
+console.log('listening on port 3000');
