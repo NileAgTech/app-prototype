@@ -66,7 +66,7 @@ app.all('*', function (req, res, next) {
 
 var httpServer = http.createServer(app);
 
-httpServer.listen(8080);
+httpServer.listen(3000);
 
 
 console.log('listening on port 8080');
