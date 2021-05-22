@@ -21,6 +21,8 @@
  <link rel="apple-touch-icon" sizes="180x180" href="images/logo/nile-logo.png">
 <script src="/scripts/jquery.js"></script>
 <script src="/scripts/ee_api_js.js"></script>
+<script type="text/javascript" src="https://unpkg.com/jsgif@1.0.2/libgif.js"></script>
+
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <!-- Load Maps JavaScript API. For production apps, append your own Maps API key. -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA"></script>
@@ -98,11 +100,14 @@
 				<h1 class="text-center font-24">Growth</h1>
 				<p class="text-center mt-n2 opacity-50 font-12">Timelapse of growth.</p>
 				<div class="polaroid">
-					<img id="animation_img">
+					<div id="animation_img"></div>
 				</div>
 				
 				<div>
 					<div class="row justify-content-around">
+						<div class="col-12 ">
+						  <input type="range" min="1" max="100" value="50"  id="growthRange">
+						</div>
 						<div class="col-6 ">
 							<label for="start">Start date:</label>
 							<input type="date" id="start_date"  value="2021-07-22" >
@@ -507,7 +512,7 @@
 
 <script>
 
-
+var rub
 
 var icons = {
 	
@@ -528,15 +533,19 @@ var icons = {
 
 const ee_token = 'AIzaSyDpbgp0DBCSEmr5yLxRxdOZZPncWHHKFMA'
 const EE_MAP_PATH = 'https://earthengine.googleapis.com/v1alpha'
-
+function pad(num, size) {
+    num = num.toString();
+    while (num.length < size) num = "0" + num;
+    return num;
+}
 function timeConverter(timestamp){
   var date = new Date(timestamp);
   var newDate = date.getDate()+
           "/"+(date.getMonth()+1)+
           "/"+date.getFullYear()+
-          " "+date.getHours()+
-          ":"+date.getMinutes()+
-          ":"+date.getSeconds();
+          " "+pad(date.getHours(),2)+
+          ":"+pad(date.getMinutes(),2)+
+          ":"+pad(date.getSeconds(),2);
 
   return newDate;
 }
@@ -660,16 +669,69 @@ const historical_weather = (resInfo) => {
 		console.log(resInfo)
 
 }
-
+var playing = false
 const initialize_animation = (resInfo) => {
 
 		var url = resInfo.url
 
         // Get a reference to the placeholder DOM element to contain the map.
-        const imgContainer = document.getElementById("animation_img");
-		imgContainer.src = url
+	const imgContainer = document.getElementById("animation_img");
+//	imgContainer.src = url
 
 
+		
+		//$('#animation_img').each(function (img_tag) {
+		//	if (/.*\.gif/.test(url)) {
+				 rub = new SuperGif({
+					gif:  imgContainer,
+					auto_play:true,
+					loop_delay:3000,
+					//max_width:'100%'
+					progressbar_height:20,
+					rubbable:true
+				} );
+				rub.load_url(url,function(){
+					console.log('oh hey, now the gif is loaded');
+					
+					rub.play()
+
+					
+					var totalFrames = rub.get_length()
+					console.log('total ',totalFrames)
+					$('#growthRange').attr('max',totalFrames).val(0)
+					setTimeout(function(){
+					console.log(rub.get_current_frame())
+					//	alert("Hello");
+						
+					}, 3000);
+					
+					
+					
+					
+$('.jsgif').on('click', function() {
+	
+	console.log('asdfk')
+	if(rub.get_playing()){
+		
+		rub.pause()
+		 playing = false
+	}else {
+		rub.play()
+		playing = true
+		 
+	}
+
+
+})
+				});
+				
+
+		//	}
+		//});
+		
+		
+		
+		
 		
 
 }
@@ -704,7 +766,7 @@ if (day < 10) day = "0" + day;
 var today = year + "-" + month + "-" + day;
 $('#end_date').val(today);
 
-var yearAgo = (year-1)+ "-" + month + "-" + day;
+var yearAgo = (year - 1)+ "-" + month+ "-" + day;
 $('#start_date').val(yearAgo);
 
 
@@ -716,7 +778,32 @@ $('#start_date, #end_date').on('input', function() {
 });
 
 
+$('#growthRange').on('input', function() {
+	
+    var newValue = this.value;
+	
+	rub.pause()
+	rub.move_to(newValue)
+    console.log(newValue)
+	//$('#newValue').html(newValue);
+}).on('change', function() {
+	
+if(playing){
+	rub.play()
 }
+});
+
+
+
+
+
+// setup gif player
+
+
+
+}
+
+
 
 
 

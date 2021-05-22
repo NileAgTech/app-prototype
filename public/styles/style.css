@@ -6945,7 +6945,7 @@ select:-webkit-autofill:focus {
 
 .polaroid{
 	
-	padding-bottom: 1em;
+	padding-bottom:1em
 }
 h1{
 	
@@ -6955,4 +6955,30 @@ h1{
 .iconCol p {
 	white-space: nowrap;
 
+}
+input[type="range"]{
+	
+	
+	 background: #3b7a58;
+	 margin-bottom: 0.1em;
+}
+input[type="range"]::-webkit-slider-thumb {
+	background: #bebebe;
+}
+.jsgif canvas{
+	width:100%
+}
+/*::-webkit-inner-spin-button,*/
+/*
+::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}*/
+
+input[type="date"]{
+	
+	text-align: center;
+ font-size: 1.2em !important;
+ line-height: 1.2em !important;
+ border-radius: 1em;
 }

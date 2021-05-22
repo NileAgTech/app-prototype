@@ -179,7 +179,7 @@ router.post('/getVideoURL', async (req, res) => {
     .filterBounds(ee.Geometry.BBox(userbbox[0],userbbox[1],userbbox[2],userbbox[3]))
     .filterDate(currDateMinusYear, currDateStr)
     .sort('system:time_start', true)
-    .limit(500)
+    .limit(50)
 
   var imgMask = imgCol.map(cloudMask)
 
@@ -192,7 +192,11 @@ router.post('/getVideoURL', async (req, res) => {
         // Set composite year as an image property.
     });
 
-
+// Get the timestamp and convert it to a date.
+//var date = ee.Date(imgCol.get('system:time_start'));
+//console.log('Timestamp:', date);  // ee.Date
+	
+	
   var lsCompCol = ee.ImageCollection(lsCompList);
 
   // Define arguments for animation function parameters.
@@ -200,7 +204,7 @@ router.post('/getVideoURL', async (req, res) => {
     'region': aoi,
     'dimensions': 800,
     'crs': 'EPSG:3857',
-    'framesPerSecond': 4
+    'framesPerSecond': 6
   };
 
   console.log(lsCompCol.getVideoThumbURL(gifParams));
