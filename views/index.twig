@@ -57,12 +57,14 @@
 				<h1 class="text-center font-24">Your Farm</h1>
 				<p class="text-center mt-n2 opacity-50 font-12">Most recent satillite view of your farm</p>
 				<p class="text-center mt-n2 font-18">Image Date: <span id="satalite_date"></span></p>
+				
+		
 				<div class="polaroid">
-                	<img id="satalite_img">
+					<img id="satalite_img">
 				</div>
 				
-            </div>
-        </div>
+			</div>
+		</div>
 
 		<div class="card card-style">
             <div class="content mb-0">
@@ -80,7 +82,7 @@
 				</div>
 				<hr>
 				<div class="container">
-  					<div class="row justify-content-around">
+  					<div class="row justify-content-around text-center">
     					<div class="col-3 sunriseCol"></div>
     					<div class="col-3 sunsetCol"></div>
 						<div class="col-3 sunlightCol"></div>
@@ -524,9 +526,11 @@ var icons = {
 	'mist':'fa-sun',
 	'clear sky':'fa-sun',
 	'few clouds':'fa-clouds-sun',
-	'scattered clouds':'fa-clouds-sun',
+	'scattered clouds':'fa-sun-cloud',
 	'broken clouds':'fa-clouds-sun',
-	'overcast clouds':'fa-clouds'
+	'overcast clouds':'fa-clouds',
+
+	
 }
 
 //get satillite image
@@ -671,14 +675,17 @@ const historical_weather = (resInfo) => {
 }
 var playing = false
 const initialize_animation = (resInfo) => {
+	const imgContainer = document.getElementById("animation_img");
 
 		var url = resInfo.url
 
         // Get a reference to the placeholder DOM element to contain the map.
-	const imgContainer = document.getElementById("animation_img");
-	imgContainer.innerHTML = ""
+
 //	imgContainer.src = url
 
+function gifEnd(e){
+	console.log('end',e)
+}
 		
 		//$('#animation_img').each(function (img_tag) {
 		//	if (/.*\.gif/.test(url)) {
@@ -688,12 +695,18 @@ const initialize_animation = (resInfo) => {
 					//loop_delay:3000,
 					//max_width:'100%'
 					progressbar_height:5,
-					rubbable:true
+					rubbable:true,
+					on_end:gifEnd
 				} );
+				 
+				 
+				 
 				rub.load_url(url,function(){
+	imgContainer.innerHTML = ""
 					console.log('oh hey, now the gif is loaded');
 					
 					rub.play()
+myLoop();                   //  start the loop
 
 					
 					var totalFrames = rub.get_length()
@@ -701,10 +714,7 @@ const initialize_animation = (resInfo) => {
 					$('#growthRange').attr('max',totalFrames).val(0)
 					
 					
-					// loop this?
-					setTimeout(function(){
-						console.log(rub.get_current_frame())
-					}, 3000);
+					
 					
 					
 					
@@ -718,12 +728,34 @@ $('.jsgif').on('click', function() {
 		 playing = false
 	}else {
 		rub.play()
+		
 		playing = true
+		myLoop()
 		 
 	}
 
 
 })
+
+var i = 1;                  //  set your counter to 1
+
+function myLoop() {         //  create a loop function
+  setTimeout(function() {   //  call a 3s setTimeout when the loop is called
+    console.log('hello');   //  your code here
+    i++;                    //  increment the counter
+    if (playing) {           //  if the counter < 10, call the loop function
+		
+		console.log('play')
+		
+			$('#growthRange').val(rub.get_current_frame())
+      myLoop();             //  ..  again which will trigger another
+    }                       //  ..  setTimeout()
+  }, 200)
+}
+
+
+
+
 				});
 				
 
@@ -773,7 +805,7 @@ $('#start_date').val(yearAgo);
 
 newVideo()
 
-$('#start_date, #end_date').on('input', function() {
+$('#start_date, #end_date').on('change', function() {
  //console.log('chaned')
  newVideo()
 });
