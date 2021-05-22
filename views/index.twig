@@ -676,8 +676,8 @@ const initialize_animation = (resInfo) => {
 
         // Get a reference to the placeholder DOM element to contain the map.
 	const imgContainer = document.getElementById("animation_img");
+	imgContainer.innerHTML = ""
 //	imgContainer.src = url
-
 
 		
 		//$('#animation_img').each(function (img_tag) {
@@ -685,9 +685,9 @@ const initialize_animation = (resInfo) => {
 				 rub = new SuperGif({
 					gif:  imgContainer,
 					auto_play:true,
-					loop_delay:3000,
+					//loop_delay:3000,
 					//max_width:'100%'
-					progressbar_height:20,
+					progressbar_height:5,
 					rubbable:true
 				} );
 				rub.load_url(url,function(){
@@ -699,10 +699,11 @@ const initialize_animation = (resInfo) => {
 					var totalFrames = rub.get_length()
 					console.log('total ',totalFrames)
 					$('#growthRange').attr('max',totalFrames).val(0)
+					
+					
+					// loop this?
 					setTimeout(function(){
-					console.log(rub.get_current_frame())
-					//	alert("Hello");
-						
+						console.log(rub.get_current_frame())
 					}, 3000);
 					
 					
@@ -849,6 +850,18 @@ if(loggedIn){
 // get new video
 
 function newVideo(){
+	
+	$('.jsgif').remove()
+	const imgContainer = document.getElementById("animation_img");
+
+	imgContainer.innerHTML = `<div class="col-12">
+<div class="d-flex justify-content-center">
+<div class="spinner-border color-green-dark" role="status">
+<span class="sr-only">Loading...</span>
+</div>
+</div>
+</div>`;
+
 	$.ajax({
 		url: "/getVideoURL",
 		type: "POST",

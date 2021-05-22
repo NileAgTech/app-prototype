@@ -6975,6 +6975,7 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
 }*/
 
+/*
 input[type="date"]{
 	
 	text-align: center;
@@ -6982,3 +6983,4 @@ input[type="date"]{
  line-height: 1.2em !important;
  border-radius: 1em;
 }
+*/
