@@ -6951,3 +6951,8 @@ h1{
 	
 	white-space: nowrap;
 }
+
+.iconCol p {
+	white-space: nowrap;
+
+}

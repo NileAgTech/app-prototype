@@ -509,24 +509,6 @@
 
 
 
-function newVideo(){
-	$.ajax({
-		url: "/getVideoURL",
-		type: "POST",
-		data: {
-			start: $( "#start_date" ).val(),
-			end: $( "#end_date" ).val()
-		},
-		success: function(result) {
-			console.log(result);
-			
-					initialize_animation(result)
-		},
-		error: function(result) {
-						console.log(result);
-		}
-	});
-}
 var icons = {
 	
 	
@@ -688,20 +670,12 @@ const initialize_animation = (resInfo) => {
 		imgContainer.src = url
 
 
-
-$('#start_date').on('input', function() {
-  console.log('chaned')
-  newVideo()
-});
-
-
-
-$('#end_date').on('input', function() {
-  console.log('chaned')
-  newVideo()
-});
+		
 
 }
+
+
+
 
 const initialize_animation2 = (resInfo) => {
 
@@ -710,6 +684,37 @@ const initialize_animation2 = (resInfo) => {
         // Get a reference to the placeholder DOM element to contain the map.
         const imgContainer = document.getElementById("animation_img2");
 		imgContainer.src = url
+
+}
+
+
+
+function setupDateInputs(){
+	
+	
+	
+	var date = new Date();
+var day = date.getDate();
+var month = date.getMonth() + 1;
+var year = date.getFullYear();
+
+if (month < 10) month = "0" + month;
+if (day < 10) day = "0" + day;
+
+var today = year + "-" + month + "-" + day;
+$('#end_date').val(today);
+
+var yearAgo = (year-1)+ "-" + month + "-" + day;
+$('#start_date').val(yearAgo);
+
+
+newVideo()
+
+$('#start_date, #end_date').on('input', function() {
+ //console.log('chaned')
+ newVideo()
+});
+
 
 }
 
@@ -727,10 +732,15 @@ if(loggedIn){
         .then((response) => response.json())
         .then((resInfo) => initialize_image(resInfo));
 
-	fetch("/getVideoURL")
+	/*fetch("/getVideoURL")
 		.then((response) => response.json())
 		.then((resInfo) => initialize_animation(resInfo));
-
+*/
+		
+		setupDateInputs()
+		
+		
+		
 	fetch("/airPollutionData")
 		.then((response) => response.json())
 		.then((resInfo) => initialize_pollution(resInfo));
@@ -747,5 +757,27 @@ if(loggedIn){
 
 }
 
+
+
+// get new video
+
+function newVideo(){
+	$.ajax({
+		url: "/getVideoURL",
+		type: "POST",
+		data: {
+			start: $( "#start_date" ).val(),
+			end: $( "#end_date" ).val()
+		},
+		success: function(result) {
+			console.log(result);
+			
+					initialize_animation(result)
+		},
+		error: function(result) {
+						console.log(result);
+		}
+	});
+}
 	</script>
 </body>
