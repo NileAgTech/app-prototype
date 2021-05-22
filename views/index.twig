@@ -101,6 +101,19 @@
 				<div class="polaroid">
 					<img id="animation_img">
 				</div>
+				
+				<div>
+					<div class="row justify-content-around">
+						<div class="col-6 ">
+							<label for="start">Start date:</label>
+							<input type="date" id="start" name="trip-start" value="2021-07-22" >
+						</div>
+						<div class="col-6 ">
+							<label for="start">End date:</label>
+							<input type="date" id="start" name="trip-start" value="2021-07-22" >
+						</div>
+					</div>
+				</div>
             </div>
         </div>
 
@@ -113,7 +126,7 @@
 			<div class="content mt-n3 mb-0">
 				
 				<h1 class="text-center font-24">Air Quality</h1>
-				<p class="text-center mt-n2 opacity-50 font-12"></p>
+				<p class="text-center mt-n2 opacity-50 font-12">How clean is the air?</p>
 
 				<div class="d-flex mb-3">
 					<div class="align-self-center w-100">
@@ -202,7 +215,7 @@
 			</div>
 			<div class="content mt-n3 mb-0">
 				<h1 class="text-center font-24">Projected Harvest</h1>
-				<p class="text-center mt-n2 opacity-50 font-12">How clean is the air?</p>
+				<p class="text-center mt-n2 opacity-50 font-12">Your crops are looking great!</p>
 				<div class="content mb-0">
 					
 						<!--- Wheat-->
@@ -577,17 +590,55 @@ const initialize_weather = (resInfo) => {
 	$('.iconCol').append('<i class="fad '+icons[desc]+' fa-4x"></i>')
 	$('.iconCol').append('<p> '+  desc + '</p>')
 
-	$('.tempCol').append('<h1>' + temp + ' °F </h1>')
+	$('.tempCol').append('<h1><span id="temp">' + temp + '</span> °<span id="tempSystem">F</span> </h1>')
 
-	$('.sunriseCol').append('<p><b>Sunrise</b></p>')
+	$('.sunriseCol').append('<p><i class="fas fa-sunrise fa-3x"></i><br><b>Sunrise</b></p>')
 	$('.sunriseCol').append('<p>' + formattedSunrise + '</p>')
 
-	$('.sunsetCol').append('<p><b>Sunset</b></p>')
+	$('.sunsetCol').append('<p><i class="fas fa-sunset fa-3x"></i><br><b>Sunset</b></p>')
 	$('.sunsetCol').append('<p>' + formattedSunset + '</p>')
 
 	$('.sunlightCol').append('<p><b>Sunlight</b></p>')
-	$('.sunlightCol').append('<p>' + total_sun + ' hours</p>')
+	$('.sunlightCol').append('<p>' + total_sun.toFixed(2) + ' hours</p>')
+	
+	
+		var system = 'F';
+		
+	// tempeture F/C
+	$( ".tempCol" ).click(function() {
+	
+	if(system == 'F'){
+		$( "#temp" ).text(fToC(temp));
+
+	$( "#tempSystem" ).text("C");
+	system = 'C'
+	}
+	else {
+			$( "#temp" ).text(temp);
+
+	$( "#tempSystem" ).text("F");
+		system = 'F'
+
 }
+	});
+}
+
+
+// Celcius to Fahrenheit
+function cToF(celsius){
+  var cTemp = celsius;
+  var cToFahr = cTemp * 9 / 5 + 32;
+  return cToFahr
+}
+
+// Fahrenheit to Celcius
+function fToC(fahrenheit){
+  var fTemp = fahrenheit;
+  var fToCel = (fTemp - 32) * 5 / 9;
+  return fToCel.toFixed(0);
+}
+
+
 
 const initialize_image = (resInfo) => {
 
