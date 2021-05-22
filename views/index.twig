@@ -19,8 +19,7 @@
 <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
 	<link rel="icon" type="image/png" href="images/logo/nile-logo.png"/>
  <link rel="apple-touch-icon" sizes="180x180" href="images/logo/nile-logo.png">
- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="/scripts/jquery.js"></script>
 <script src="/scripts/ee_api_js.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <!-- Load Maps JavaScript API. For production apps, append your own Maps API key. -->
@@ -106,11 +105,11 @@
 					<div class="row justify-content-around">
 						<div class="col-6 ">
 							<label for="start">Start date:</label>
-							<input type="date" id="start" name="trip-start" value="2021-07-22" >
+							<input type="date" id="start_date"  value="2021-07-22" >
 						</div>
 						<div class="col-6 ">
 							<label for="start">End date:</label>
-							<input type="date" id="start" name="trip-start" value="2021-07-22" >
+							<input type="date" id="end_date" value="2021-07-22" >
 						</div>
 					</div>
 				</div>
@@ -504,11 +503,30 @@
 
 <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="/scripts/custom.js"></script>
-<script type="text/javascript" src="/scripts/jquery.js"></script>
 
 
 <script>
 
+
+
+function newVideo(){
+	$.ajax({
+		url: "/getVideoURL",
+		type: "POST",
+		data: {
+			start: $( "#start_date" ).val(),
+			end: $( "#end_date" ).val()
+		},
+		success: function(result) {
+			console.log(result);
+			
+					initialize_animation(result)
+		},
+		error: function(result) {
+						console.log(result);
+		}
+	});
+}
 var icons = {
 	
 	
@@ -592,17 +610,17 @@ const initialize_weather = (resInfo) => {
 
 	$('.tempCol').append('<h1><span id="temp">' + temp + '</span> °<span id="tempSystem">F</span> </h1>')
 
-	$('.sunriseCol').append('<p><i class="fas fa-sunrise fa-3x"></i><br><b>Sunrise</b></p>')
+	$('.sunriseCol').append('<p><i class="fad fa-sunrise fa-3x"></i><br><b>Sunrise</b></p>')
 	$('.sunriseCol').append('<p>' + formattedSunrise + '</p>')
 
-	$('.sunsetCol').append('<p><i class="fas fa-sunset fa-3x"></i><br><b>Sunset</b></p>')
+	$('.sunsetCol').append('<p><i class="fad fa-sunset fa-3x"></i><br><b>Sunset</b></p>')
 	$('.sunsetCol').append('<p>' + formattedSunset + '</p>')
 
 	$('.sunlightCol').append('<p><b>Sunlight</b></p>')
 	$('.sunlightCol').append('<p>' + total_sun.toFixed(2) + ' hours</p>')
 	
 	
-		var system = 'F';
+	var system = 'F';
 		
 	// tempeture F/C
 	$( ".tempCol" ).click(function() {
@@ -611,15 +629,15 @@ const initialize_weather = (resInfo) => {
 		$( "#temp" ).text(fToC(temp));
 
 	$( "#tempSystem" ).text("C");
-	system = 'C'
+		system = 'C'
 	}
 	else {
-			$( "#temp" ).text(temp);
+		$( "#temp" ).text(temp);
 
-	$( "#tempSystem" ).text("F");
+		$( "#tempSystem" ).text("F");
 		system = 'F'
 
-}
+	}
 	});
 }
 
@@ -669,6 +687,20 @@ const initialize_animation = (resInfo) => {
         const imgContainer = document.getElementById("animation_img");
 		imgContainer.src = url
 
+
+
+$('#start_date').on('input', function() {
+  console.log('chaned')
+  newVideo()
+});
+
+
+
+$('#end_date').on('input', function() {
+  console.log('chaned')
+  newVideo()
+});
+
 }
 
 const initialize_animation2 = (resInfo) => {
@@ -685,6 +717,12 @@ const initialize_animation2 = (resInfo) => {
 
 window.onload = function(){
 
+
+/*
+if(loggedIn){
+//window.location.href = "http://www.w3schools.com";
+
+}*/
 	fetch("/satImgURL")
         .then((response) => response.json())
         .then((resInfo) => initialize_image(resInfo));
@@ -708,7 +746,6 @@ window.onload = function(){
 
 
 }
-
 
 	</script>
 </body>
