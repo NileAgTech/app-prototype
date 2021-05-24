@@ -620,19 +620,16 @@ const initialize_weather = (resInfo) => {
 	// tempeture F/C
 	$( ".tempCol" ).click(function() {
 	
-	if(system == 'F'){
-		$( "#temp" ).text(fToC(temp));
-
-	$( "#tempSystem" ).text("C");
-		system = 'C'
-	}
-	else {
-		$( "#temp" ).text(temp);
-
-		$( "#tempSystem" ).text("F");
-		system = 'F'
-
-	}
+		if(system == 'F'){
+			$( "#temp" ).text(fToC(temp));
+			$( "#tempSystem" ).text("C");
+			system = 'C'
+		}
+		else {
+			$( "#temp" ).text(temp);
+			$( "#tempSystem" ).text("F");
+			system = 'F'
+		}
 	});
 }
 
@@ -641,7 +638,7 @@ const initialize_weather = (resInfo) => {
 function cToF(celsius){
   var cTemp = celsius;
   var cToFahr = cTemp * 9 / 5 + 32;
-  return cToFahr
+  return cToFahr.toFixed(0);
 }
 
 // Fahrenheit to Celcius
@@ -650,7 +647,6 @@ function fToC(fahrenheit){
   var fToCel = (fTemp - 32) * 5 / 9;
   return fToCel.toFixed(0);
 }
-
 
 
 const initialize_image = (resInfo) => {
@@ -673,171 +669,112 @@ const historical_weather = (resInfo) => {
 		console.log(resInfo)
 
 }
-var playing = false
+var playing = false;
+
 const initialize_animation = (resInfo) => {
 	const imgContainer = document.getElementById("animation_img");
 
-		var url = resInfo.url
+	var url = resInfo.url
 
-        // Get a reference to the placeholder DOM element to contain the map.
-
-//	imgContainer.src = url
-
-function gifEnd(e){
-	console.log('end',e)
-}
-		
-		//$('#animation_img').each(function (img_tag) {
-		//	if (/.*\.gif/.test(url)) {
-				 rub = new SuperGif({
-					gif:  imgContainer,
-					auto_play:true,
-					//loop_delay:3000,
-					//max_width:'100%'
-					progressbar_height:5,
-					rubbable:true,
-					on_end:gifEnd
-				} );
-				 
-				 
-				 
-				rub.load_url(url,function(){
-	imgContainer.innerHTML = ""
-					console.log('oh hey, now the gif is loaded');
-					
-					rub.play()
-myLoop();                   //  start the loop
-
-					
-					var totalFrames = rub.get_length()
-					console.log('total ',totalFrames)
-					$('#growthRange').attr('max',totalFrames).val(0)
-					
-					
-					
-					
-					
-					
-					
-$('.jsgif').on('click', function() {
-	
-	console.log('asdfk')
-	if(rub.get_playing()){
-		
-		rub.pause()
-		 playing = false
-	}else {
-		rub.play()
-		
-		playing = true
-		myLoop()
-		 
+	function gifEnd(e){
+		console.log('end',e)
 	}
 
+	rub = new SuperGif({
+		gif:  imgContainer,
+		auto_play:true,
+		progressbar_height:5,
+		rubbable:true,
+		on_end:gifEnd
+	} );
 
-})
+	rub.load_url(url,function(){
+		imgContainer.innerHTML = ""
 
-var i = 1;                  //  set your counter to 1
+		rub.play();
+		myLoop();
 
-function myLoop() {         //  create a loop function
-  setTimeout(function() {   //  call a 3s setTimeout when the loop is called
-    console.log('hello');   //  your code here
-    i++;                    //  increment the counter
-    if (playing) {           //  if the counter < 10, call the loop function
-		
-		console.log('play')
-		
-			$('#growthRange').val(rub.get_current_frame())
-      myLoop();             //  ..  again which will trigger another
-    }                       //  ..  setTimeout()
-  }, 200)
+		var totalFrames = rub.get_length()
+		$('#growthRange').attr('max',totalFrames).val(0)
+
+		$('.jsgif').on('click', function() {
+
+			if(rub.get_playing()){
+				rub.pause()
+				playing = false
+			} else {
+				rub.play()
+				playing = true
+				myLoop()
+			}
+
+		})
+
+		var animationTimer = 1;
+
+		function myLoop() {
+			setTimeout(function() {
+				animationTimer++;
+				if (playing) {		
+					$('#growthRange').val(rub.get_current_frame())
+					myLoop();
+				}
+			}, 200)
+		}
+
+	});
+
 }
-
-
-
-
-				});
-				
-
-		//	}
-		//});
-		
-		
-		
-		
-		
-
-}
-
-
 
 
 const initialize_animation2 = (resInfo) => {
 
-		var url = resInfo.url
+	var url = resInfo.url
 
-        // Get a reference to the placeholder DOM element to contain the map.
-        const imgContainer = document.getElementById("animation_img2");
-		imgContainer.src = url
+	// Get a reference to the placeholder DOM element to contain the map.
+	const imgContainer = document.getElementById("animation_img2");
+	imgContainer.src = url
 
 }
-
-
 
 function setupDateInputs(){
-	
-	
-	
+
 	var date = new Date();
-var day = date.getDate();
-var month = date.getMonth() + 1;
-var year = date.getFullYear();
+	var day = date.getDate();
+	var month = date.getMonth() + 1;
+	var year = date.getFullYear();
 
-if (month < 10) month = "0" + month;
-if (day < 10) day = "0" + day;
+	if (month < 10) month = "0" + month;
+	if (day < 10) day = "0" + day;
 
-var today = year + "-" + month + "-" + day;
-$('#end_date').val(today);
+	var today = year + "-" + month + "-" + day;
+	$('#end_date').val(today);
 
-var yearAgo = (year - 1)+ "-" + month+ "-" + day;
-$('#start_date').val(yearAgo);
+	var yearAgo = (year - 1)+ "-" + month+ "-" + day;
+	$('#start_date').val(yearAgo);
 
+	newVideo()
 
-newVideo()
-
-$('#start_date, #end_date').on('change', function() {
- //console.log('chaned')
- newVideo()
-});
+	$('#start_date, #end_date').on('change', function() {
+		newVideo()
+	});
 
 
-$('#growthRange').on('input', function() {
-	
-    var newValue = this.value;
-	
-	rub.pause()
-	rub.move_to(newValue)
-    console.log(newValue)
-	//$('#newValue').html(newValue);
-}).on('change', function() {
-	
-if(playing){
-	rub.play()
-}
-});
+	$('#growthRange').on('input', function() {
 
+		var newValue = this.value;
 
+		rub.pause();
+		rub.move_to(newValue);
 
+	}).on('change', function() {
 
-
-// setup gif player
-
-
+		if(playing){
+			rub.play()
+		}
+	});
 
 }
-
-
-
 
 
 window.onload = function(){
@@ -857,9 +794,7 @@ if(loggedIn){
 		.then((resInfo) => initialize_animation(resInfo));
 */
 		
-		setupDateInputs()
-		
-		
+	setupDateInputs()
 		
 	fetch("/airPollutionData")
 		.then((response) => response.json())
@@ -878,7 +813,6 @@ if(loggedIn){
 }
 
 
-
 // get new video
 
 function newVideo(){
@@ -887,27 +821,26 @@ function newVideo(){
 	const imgContainer = document.getElementById("animation_img");
 
 	imgContainer.innerHTML = `<div class="col-12">
-<div class="d-flex justify-content-center">
-<div class="spinner-border color-green-dark" role="status">
-<span class="sr-only">Loading...</span>
-</div>
-</div>
-</div>`;
+	<div class="d-flex justify-content-center">
+	<div class="spinner-border color-green-dark" role="status">
+	<span class="sr-only">Loading...</span>
+	</div>
+	</div>
+	</div>`;
 
 	$.ajax({
 		url: "/getVideoURL",
 		type: "POST",
 		data: {
 			start: $( "#start_date" ).val(),
-			end: $( "#end_date" ).val()
+			end:   $( "#end_date"   ).val()
 		},
 		success: function(result) {
 			console.log(result);
-			
-					initialize_animation(result)
+			initialize_animation(result)
 		},
 		error: function(result) {
-						console.log(result);
+			console.log(result);
 		}
 	});
 }
